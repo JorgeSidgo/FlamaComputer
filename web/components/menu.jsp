@@ -10,6 +10,10 @@
         Productos
         <i class="boxes icon"></i>
     </a>
+    <a href="clientes.jsp" class="item menu-it">
+        Clientes
+        <i class="child icon"></i>
+    </a>
     <a href="vendedores.jsp" class="item menu-it">
         Vendedores
         <i class="address book icon"></i>
