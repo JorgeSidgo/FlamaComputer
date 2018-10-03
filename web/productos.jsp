@@ -91,7 +91,7 @@
                  *      name: 'codigoBarra',
                  *      type: 'text'
                  * }
-                 */*/
+                 */
             ],
             campos_editar: [{
                     label: 'Producto',

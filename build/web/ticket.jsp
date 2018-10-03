@@ -6,8 +6,7 @@
 
 <%@page import="net.sf.jasperreports.engine.JasperRunManager"%>
 <%@page import="com.modelo.Factura"%>
-<%@page import="java.util.Map"%>
-<%@page import="java.util.HashMap"%>
+<%@page import="java.util.*"%>
 <%@page import="java.io.File"%>
 <%@page import="com.dao.DaoFactura"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,11 +24,12 @@ DaoFactura daoF = new DaoFactura();
         
         <%
     if(request.getSession().getAttribute("nfactura")!=null){
-        daoF.conectar();
         
-        int n= Integer.parseInt(request.getSession().getAttribute("nfactura").toString());
+        String n= request.getSession().getAttribute("nfactura").toString();
+        
         Factura fact = daoF.datosFactura(n);
         
+        daoF.conectar();
         File reporte = new File(application.getRealPath("reportes/ticketCompra.jasper"));
         Map parametros = new HashMap();
         parametros.put("cliente", fact.getNombreCliente());
@@ -38,6 +38,8 @@ DaoFactura daoF = new DaoFactura();
         parametros.put("total", fact.getTotal());
         parametros.put("totalIVA", fact.getTotalIVA());
         parametros.put("vendedor", fact.getNombreVendedor());
+        parametros.put("efectivo", request.getSession().getAttribute("efectivo").toString());
+        parametros.put("cambio", request.getSession().getAttribute("cambio").toString());
         
         byte[] bytes = JasperRunManager.runReportToPdf(reporte.getPath(), parametros,daoF.getCon());
         
