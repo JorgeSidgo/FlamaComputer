@@ -18,4 +18,8 @@
         Usuarios
         <i class="users icon"></i>
     </a>
+    <a href="reportes.jsp" class="item menu-it">
+        Reportes
+        <i class="archive icon"></i>
+    </a>
 </div>
