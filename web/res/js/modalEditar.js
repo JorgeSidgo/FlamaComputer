@@ -140,7 +140,7 @@ Vue.component('modal-editar', {
                     <button class="ui black deny button">
                         Cancelar
                     </button>
-                    <button class="ui right primary button" @click="editar" >
+                    <button class="ui right primary button" @click="editar" id="btnEditar">
                         Guardar Cambios
                     </button>
                 </div>

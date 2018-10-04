@@ -158,10 +158,37 @@
                         if (dat == 1) {
                             $(contra).siblings('div.ui.red.pointing.label').html('');
                             $(contra).siblings('div.ui.red.pointing.label').css('display', 'none');
-                        }else{
+                        } else {
                             $(contra).siblings('div.ui.red.pointing.label').html(
                                 'La constraseña no concuerda');
                             $(contra).siblings('div.ui.red.pointing.label').css('display', 'inline-block');
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            },
+            clearCampo(idForm, btn) {
+                var nombre = $('#' + idForm + ' input[name="nombreUsuario"]');
+                $(nombre).siblings('div.ui.red.pointing.label').html('');
+                $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
+                $(btn).removeClass('disabled');
+            },
+            compNombre(idForm, btn) {
+                var nombre = $('#' + idForm + ' input[name="nombreUsuario"]');
+                fetch("controladorUsuario?operacion=compNombre&user=" + nombre.val())
+                    .then(response => {
+                        return response.json();
+                    })
+                    .then(dat => {
+                        if (dat == 1) {
+                            $(nombre).siblings('div.ui.red.pointing.label').html('');
+                            $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
+                        } else {
+                            $(nombre).siblings('div.ui.red.pointing.label').html(
+                                'Este nombre de usuario ya está ocupado');
+                            $(nombre).siblings('div.ui.red.pointing.label').css('display', 'inline-block');
+                            $(btn).addClass('disabled');
                         }
                     })
                     .catch(err => {
@@ -197,6 +224,22 @@
         $('#modalEditar').modal('setting', 'closable', false).modal('show');
         $('#codigoUsuario').val($(this).attr("id"));
         app.cargarDatos();
+    });
+
+    $('#frmRegistrar input[name="nombreUsuario"]').focusout(function () {
+        app.compNombre("frmRegistrar", "#btnRegistrar");
+    });
+
+    $('#frmEditar input[name="nombreUsuario"]').focusout(function () {
+        app.compNombre("frmEditar", "#btnEditar");
+    });
+
+    $('#frmRegistrar input[name="nombreUsuario"]').focus(function () {
+        app.clearCampo("frmRegistrar", "#btnRegistrar");
+    });
+
+    $('#frmEditar input[name="nombreUsuario"]').focus(function () {
+        app.clearCampo("frmEditar", "#btnEditar");
     });
 
     $('input[name="passConf"]').focusout(function () {

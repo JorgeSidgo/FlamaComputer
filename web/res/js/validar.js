@@ -72,6 +72,33 @@ function isArith(cadena)
     }
 }
 
-function throwError(){
+function resetFrm(form, btn) {
+    $('#' + form + ' :input').each(function() {
+        $(this).val("");
+        $(this).siblings('div.ui.red.pointing.label').css('display', 'none');
+        $(this).siblings('div.ui.red.pointing.label').html('');
+    });
 
+    $(btn).removeClass('disabled');
+}
+
+
+function validarVacios(parametro, btn) {
+    var num = 0;
+    $('#' + parametro + ' .requerido').each(function() {
+        var valor = $(this).val();
+        if ((valor == "") || (valor == "-")) {
+            num++;
+            $(this).siblings('div.ui.red.pointing.label').html('Complete este Campo');
+            $(this).siblings('div.ui.red.pointing.label').css('display', 'inline-block');
+        } else {
+            $(this).siblings('div.ui.red.pointing.label').css('display', 'none');
+            $(this).siblings('div.ui.red.pointing.label').html('');
+        }
+
+    });
+    /* if(num > 0) {
+        $(btn).addClass("disabled");
+    } */
+    return num;
 }

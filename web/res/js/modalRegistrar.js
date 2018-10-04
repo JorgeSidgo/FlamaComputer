@@ -1,4 +1,3 @@
-
 Vue.component('modal-registrar', {
 
     props: {
@@ -52,47 +51,53 @@ Vue.component('modal-registrar', {
         registrar() {
             var gatos = {};
 
-            $('#' + this.id_form).addClass('loading');
+            if (validarVacios(this.id_form) == 0) {
 
-            $('#' + this.id_form).find(":input").each(function() {
-                gatos[this.name] = $(this).val();
-            });
-            
-            gatos = JSON.stringify(gatos);
+                $('#' + this.id_form).addClass('loading');
 
-            console.log(gatos);
-            var param = {
-                method: 'POST',
-                headers: {
-                    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-                },
-                body: "datos=" + gatos,
-            };
-
-
-            fetch(this.url, param)
-                .then(response => {
-                    return response.text();
-                })
-                .then(val => {
-                    if(val == 1)
-                    {
-                        swal({
-                            title:'Registrado',
-                            text:'El elemento fue registrado exitosamente',
-                            type:'success',
-                            showConfirmButton: false,
-                            timer:1500
-                        }
-                        );
-                        $('#' + this.id_form).removeClass('loading');
-                        $('#' + this.id).modal('hide');
-                        this.$parent.refrescarTabla();
-                    }
-                }).catch(res => {
-                    console.log(res);
+                $('#' + this.id_form).find(":input").each(function () {
+                    gatos[this.name] = $(this).val();
                 });
+
+                gatos = JSON.stringify(gatos);
+
+                console.log(gatos);
+                var param = {
+                    method: 'POST',
+                    headers: {
+                        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                    },
+                    body: "datos=" + gatos,
+                };
+
+
+                fetch(this.url, param)
+                    .then(response => {
+                        return response.text();
+                    })
+                    .then(val => {
+                        if (val == 1) {
+                            swal({
+                                title: 'Registrado',
+                                text: 'El elemento fue registrado exitosamente',
+                                type: 'success',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                            $('#' + this.id_form).removeClass('loading');
+                            $('#' + this.id).modal('hide');
+                            this.$parent.refrescarTabla();
+                            resetFrm(this.id_form, "#btnRegistrar");
+                        }
+                    }).catch(res => {
+                        console.log(res);
+                    });
+            } 
+        },
+        cancelar() {
+            resetFrm(this.id_form, "#btnRegistrar");
         }
+
     },
 
 
@@ -121,19 +126,19 @@ Vue.component('modal-registrar', {
                                 <label>{{op.text}}</label>
                             </div>
 
-                            <input v-else-if="campo.type == 'number'" class="reqRegistrar" :type="campo.type" :name="campo.name" :min="campo.min" :max="campo.max" :id="campo.name" v-model.number="campo.val" :step='campo.step' :disabled='campo.disabled'>
+                            <input v-else-if="campo.type == 'number'" class="requerido" :type="campo.type" :name="campo.name" :min="campo.min" :max="campo.max" :id="campo.name" v-model.number="campo.val" :step='campo.step' :disabled='campo.disabled'>
 
-                            <input v-else class="reqRegistrar" :type="campo.type" :name="campo.name" :id="campo.name" v-model="campo.val" :disabled='campo.disabled'>
+                            <input v-else class="requerido" :type="campo.type" :name="campo.name" :id="campo.name" v-model="campo.val" :disabled='campo.disabled'>
                             <div class="ui red pointing label" style="display: none;">
                             </div>
                         </div>
                     </form>        
                 </div>
                 <div class="actions">
-                    <button class="ui black deny button">
+                    <button class="ui black deny button" @click="cancelar">
                         Cancelar
                     </button>
-                    <button class="ui right green button" @click="registrar" >
+                    <button id="btnRegistrar" class="ui right green button" @click="registrar" >
                         Registrar
                     </button>
                 </div>

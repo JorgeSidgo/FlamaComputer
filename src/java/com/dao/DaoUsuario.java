@@ -86,6 +86,39 @@ public class DaoUsuario extends Conexion
     return respuesta;
     }*/
     
+    public boolean compNombre(String nombre) throws Exception
+    {
+        boolean respuesta = false;
+
+        try
+        {
+            this.conectar();
+            String sql = "call compNombreUsuario(?)";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+
+            pre.setString(1, nombre);
+            
+            ResultSet res = pre.executeQuery();
+            
+            res.next();
+            
+            if(res.getInt("numero") == 0)
+            {
+                respuesta = true;
+            }
+
+        } catch (Exception e)
+        {
+            System.out.print(e.getMessage());
+            throw e;
+        } finally
+        {
+            this.desconectar();
+        }
+
+        return respuesta;
+    }
+    
     public boolean registrarUsuario(Usuario u) throws Exception
     {
         boolean respuesta = false;
