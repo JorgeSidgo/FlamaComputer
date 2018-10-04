@@ -39,7 +39,8 @@
     <script src="res/plugins/dataTable/dataTable.jquery.min.js"></script>
     <script src="res/plugins/dataTable/dataTable.semantic.min.js"></script>
 
-    <script src="res/plugins/googleCharts/google-charts.js"></script>
+    <!-- <script src="res/plugins/googleCharts/google-charts.js"></script> -->
+    <script src="res\plugins\googleCharts\google-charts.js"></script>
 
     <script>
          function HandleBackFunctionality()

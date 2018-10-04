@@ -58,6 +58,30 @@ public class DaoVendedor extends Conexion{
         return "{\"data\":["+ vendedor + "]}";
     }
     
+    public int codigoVendedorId(int id) throws Exception {
+        int idVend = 0;
+        
+        try
+        {
+            this.conectar();
+            String sql = "select codigoVendedor from vendedor where codigoUsuario = ?";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, id);
+            
+            ResultSet res = pre.executeQuery();
+            res.next();
+            
+            idVend = res.getInt("codigoVendedor");
+        } catch (Exception e)
+        {
+        }
+        finally{
+            this.desconectar();
+        }
+        
+        return idVend;
+    }
+    
     public boolean insertarVendedor(Vendedor v) throws Exception
     {
         boolean estado = false;

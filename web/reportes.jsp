@@ -19,14 +19,14 @@
         <div class="row">
             <div class="ui fluid segment" style="width: 100%;">
                 <h4 class="ui dividing header">Facturas comprendidas:</h4>
-                <form action="" class="ui form" style="width: 50%;">
+                <form action="reportes/reporteRango.jsp" method="POST" class="ui form" style="width: 50%;">
                     <div class="field">
                         <label>Desde:</label>
-                        <input type="date" name="first-name" placeholder="First Name">
+                        <input type="date" name="init">
                       </div>
                       <div class="field">
                         <label>Hasta:</label>
-                        <input type="date" name="last-name" placeholder="Last Name">
+                        <input type="date" name="fin">
                       </div>
                       <button class="ui green button" type="submit">Generar</button>
                 </form>

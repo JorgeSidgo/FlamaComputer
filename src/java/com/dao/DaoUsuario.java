@@ -21,6 +21,9 @@ public class DaoUsuario extends Conexion
     public static String permisos;
     public static int idPermiso;
     public static String descRol;
+    public static int idVendedor;
+    
+    DaoVendedor daoV = new DaoVendedor();
 
     public String getUsuarioId(int id) throws Exception
     {
@@ -284,6 +287,11 @@ public class DaoUsuario extends Conexion
                 DaoUsuario.nombreUsuario = res.getString("nombreUsuario");
                 DaoUsuario.idPermiso = res.getInt("codigoRol");
                 DaoUsuario.descRol = res.getString("descRol");
+                
+                if(res.getInt("codigoRol") == 3)
+                {
+                    DaoUsuario.idVendedor = daoV.codigoVendedorId(res.getInt("codigoUsuario"));
+                }
 
                 respuesta = true;
             } else

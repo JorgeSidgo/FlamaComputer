@@ -52,6 +52,7 @@ public class ControladorUsuario extends HttpServlet
                         sesion.setAttribute("nombreUsuario", DaoUsuario.nombreUsuario);
                         sesion.setAttribute("idPermiso", DaoUsuario.idPermiso);
                         sesion.setAttribute("descRol", DaoUsuario.descRol);
+                        sesion.setAttribute("idVendedor", DaoUsuario.idVendedor);
                         out.print("1");
                     } else
                     {
