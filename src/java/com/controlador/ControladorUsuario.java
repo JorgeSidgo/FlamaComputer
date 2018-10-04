@@ -108,6 +108,19 @@ public class ControladorUsuario extends HttpServlet
                     
                     break;
                     
+                case "compNombre":
+                    
+                    String nombre = request.getParameter("user");
+                    if (dao.compNombre(nombre))
+                    {
+                        out.print("1");
+                    } else
+                    {
+                        out.print("2");
+                    }
+                    
+                    break;    
+                    
                 case "getUsuario":
                         
                     int codigo = Integer.parseInt(request.getParameter("id"));
