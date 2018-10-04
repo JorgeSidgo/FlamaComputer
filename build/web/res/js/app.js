@@ -106,7 +106,7 @@ methods:{
 
                                 <input v-else-if="campo.type == 'number'" :type="campo.type" :name="campo.name" :min="campo.min" :max="campo.max" :id="campo.name" v-model.number="campo.val" :step='campo.step' :disabled='campo.disabled' @change="cambioTextbox(campo.name,campo.val)" @keyup="cambioTextbox(campo.name,campo.val)" @keyup.enter="envio">
 
-                                <input v-else :type="campo.type" :name="campo.name" :id="campo.name" v-model="campo.val" :disabled='campo.disabled'>
+                                <input v-else :type="campo.type" :name="campo.name" :id="campo.name" v-model.trim="campo.val" :disabled='campo.disabled' @change="cambioTextbox(campo.name,campo.val)" @keyup="cambioTextbox(campo.name,campo.val)" @keyup.enter="envio">
                                 <div class="ui red pointing label" style="display: none;">
                                 </div>
                             </div>

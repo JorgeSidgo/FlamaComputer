@@ -39,7 +39,7 @@
 <div id="app">
 
     <modal id='modalEliminar'titulo="Facturar" :campos="campos" :para='modal' @enviado='enviado' @cambio='cambio' @cancelar='cancelar'></modal>
-    <modal id='cliente'titulo="Cliente" :campos="campoCliente" :para='modal' ></modal>
+    <modal id='cliente'titulo="Cliente" :campos="campoCliente" :para='modal' @enviado='datosCliente' :deshabilitarenviar='isdatocliente' @nombre="habilitar"></modal>
     <modal id='factura'titulo="Facturar" :campos="campoFacturar" :para='modal' :deshabilitarenviar='isEnviarFactura' @efectivo='efectivo' @enviado='registrarFactura'></modal>
     
     <div class="ui grid">
@@ -49,9 +49,10 @@
                 <span>  N° <%= daoF.numeroFactura() %> </span>
             </div>
             <div class="titulo2" style='text-align:right'>
-                Cliente: <span>{{cliente.nombre}}</span>
-                <button class='ui icon button teal' @click='nueveoCliente'>
-                    <i class='pencil alternate icon'></i> 
+                Cliente: <span>{{cliente.nombre}} {{cliente.apellido}}</span>
+                <button :class='["ui icon button", {positive:isCliente}, {teal:!isCliente} ] ' @click='nueveoCliente'>
+                    <i class='plus icon' v-if="isCliente"></i> 
+                    <i class='pencil alternate icon' v-else ></i> 
                 </button>
             </div>
         </div>
@@ -61,7 +62,13 @@
                     <i class="plus icon"></i>
                     Nuevo
                 </button>
-                <input :class="['ui', 'right', 'floated', 'primary', 'button',{disabled:isfacturar}]" @click="facturar" id="btnFacturar" type='button' value='Facturar'>
+                <input :class="['ui', 'right', 'floated', 'primary', 'button',{disabled:isfacturar},{disabled:isCliente}]" @click="facturar" id="btnFacturar" type='button' value='Facturar'>
+                <div class="ui negative message" v-if="isfacturar||isCliente ">
+                      <ul style="list-style-type: disc; margin-left:1em ">
+                        <li v-if="isfacturar">Debe registrar al menos un producto en la factura</li>
+                        <li v-if="isCliente">Debe registrar un cliente</li>
+                      </ul>  
+                </div>
             </div>
         </div>
         <div class="row title-bar">
@@ -74,7 +81,7 @@
                 <table id="dtFactura" class="ui selectable very compact celled table" style="width:100%; margin:auto;">
                     <thead>
                         <tr>
-                            <th>idProducto</th>
+                            <th>Codigo</th>
                             <th>Producto</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
@@ -134,10 +141,14 @@ let app= new Vue({
         modal:"registrar",
         cliente:{
             codigo:1,
-            nombre:"Abdiel Martinez",
+            nombre:"[Registre un ",
+            apellido: "cliente]",
+            direccion: null,
         },
+        isdatocliente:true,
+        isCliente:true,
         filaSelecionada:0,
-        isfacturar:true,
+        // isfacturar:true,
         isEnviarFactura:true,
         campos : [
             {label:"Producto", name:'producto', type:'select', options:[
@@ -155,7 +166,7 @@ let app= new Vue({
         ],
         campoFacturar:[
             {label:"Total", name:'total', type:'text',disabled:'disabled', val:''},
-            {label:"Efectivo", name:'efectivo', type:'number', step:"any", min:0, clases:["focus"]},
+            {label:"Efectivo", name:'efectivo', type:'number', step:"any", min:0},
             {label:"Cambio", name:'vuelto', type:'text', disabled:'disabled', val:'$ 0.00' },
         ],
         tabla:[
@@ -189,6 +200,15 @@ let app= new Vue({
         totalIVA(){
             let res=this.total+(this.total*0.13);
             return res.toFixed(2);
+        },
+        isfacturar(){
+            let val=true;
+            if(this.tabla.length>0){
+                val=false;
+            }else{
+                val=true;
+            }
+            return val;
         }
     },
     filters:{
@@ -230,7 +250,7 @@ let app= new Vue({
             }else{
                 this.tabla.push({id:val[0].value,producto: val[0].texto, precio: parseFloat(val[1].value), cantidad: parseInt(val[2].value)})
             }
-            this.isfacturar=false;
+            // this.isfacturar=false;
             this.modal='registrar';
         },
         editar(idProducto,nombre, precio, cantidad,indice){
@@ -283,15 +303,24 @@ let app= new Vue({
             }
 
             fetch('ControladorFactura?op=1',parametros)
-            .then(response=>{
-                window.open("ControladorFactura?op=2&nfactura=<%= daoF.numeroFactura() %>", "Factura", "width=500, height=675");
-                swal({
-                        title:'Venta realizada!',
-                        text:'La venta se ha realizado exitosamente',
-                        type:'success',
-                    }).then(()=>{
-                        window.location='factura.jsp';
+            .then(response=>{ return response.json(); })
+            .then(val=>{
+                if(val==0){
+                    swal({
+                        title:'No se pudo registrar la factura',
+                        text:'La venta NO se ha realizado',
+                        type:'error',
                     })
+                }else{
+                    window.open("ControladorFactura?op=2&nfactura=<%= daoF.numeroFactura() %>", "Factura", "width=500, height=675");
+                    swal({
+                            title:'Venta realizada!',
+                            text:'La venta se ha realizado exitosamente',
+                            type:'success',
+                        }).then(()=>{
+                            window.location='factura.jsp';
+                        })
+                }
             })
         },
         efectivo(val){  //SE ACTIVA AL CAMBIAR LA CANTIDAD DE EFECTIVO PARA PAGAR
@@ -308,6 +337,19 @@ let app= new Vue({
         nueveoCliente(){
             $('#cliente').modal('setting', 'autofocus', false).modal('setting', 'closable', false).modal('show');
             
+        },
+        datosCliente(val){
+            this.isCliente=false;
+            this.cliente.nombre=val[0].value;
+            this.cliente.apellido=val[1].value;
+            this.cliente.direccion=val[2].value;
+        },
+        habilitar(val){
+            if (val.length>2) {
+                this.isdatocliente=false;
+            }else{
+                this.isdatocliente=true;
+            }
         },
 
         //METODOS LOCALES
@@ -326,7 +368,7 @@ let app= new Vue({
                 }).then((result) => {
                 if (result.value) {
                     this.tabla.splice(indice,1);
-                    this.isfacturar=true;
+                    // this.isfacturar=true;
 
                     swal({
                         title:'Eliminado!',
