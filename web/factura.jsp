@@ -39,7 +39,7 @@
 <div id="app">
 
     <modal id='modalEliminar'titulo="Facturar" :campos="campos" :para='modal' @enviado='enviado' @cambio='cambio' @cancelar='cancelar'></modal>
-    <modal id='cliente'titulo="Cliente" :campos="campoCliente" :para='modal' @enviado='datosCliente' :deshabilitarenviar='isdatocliente' @nombre="habilitar"></modal>
+    <modal id='cliente'titulo="Cliente" :campos="campoCliente" :para='modal' @enviado='datosCliente' :deshabilitarenviar='isdatocliente' @cambio="habilitar"></modal>
     <modal id='factura'titulo="Facturar" :campos="campoFacturar" :para='modal' :deshabilitarenviar='isEnviarFactura' @efectivo='efectivo' @enviado='registrarFactura'></modal>
     
     <div class="ui grid">
@@ -355,7 +355,7 @@ let app= new Vue({
             this.cliente.direccion=val[2].value;
         },
         habilitar(val){
-            if (val.length>2) {
+            if (val[0].value.length>2 && val[1].value.length>2 && val[2].value.length>2) {
                 this.isdatocliente=false;
             }else{
                 this.isdatocliente=true;
