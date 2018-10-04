@@ -150,23 +150,29 @@
             },
             compContra() {
                 var contra = $('input[name="passConf"]');
-                fetch("controladorUsuario?operacion=compContra&user=<%= nombreUsuario%>&pass=" + contra.val())
-                    .then(response => {
-                        return response.json();
-                    })
-                    .then(dat => {
-                        if (dat == 1) {
-                            $(contra).siblings('div.ui.red.pointing.label').html('');
-                            $(contra).siblings('div.ui.red.pointing.label').css('display', 'none');
-                        } else {
-                            $(contra).siblings('div.ui.red.pointing.label').html(
-                                'La constraseña no concuerda');
-                            $(contra).siblings('div.ui.red.pointing.label').css('display', 'inline-block');
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
+
+                if (contra.val().trim() != "") {
+
+                    fetch("controladorUsuario?operacion=compContra&user=<%= nombreUsuario%>&pass=" + contra.val()
+                            .trim())
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(dat => {
+                            if (dat == 1) {
+                                $(contra).siblings('div.ui.red.pointing.label').html('');
+                                $(contra).siblings('div.ui.red.pointing.label').css('display', 'none');
+                            } else {
+                                $(contra).siblings('div.ui.red.pointing.label').html(
+                                    'La constraseña no concuerda');
+                                $(contra).siblings('div.ui.red.pointing.label').css('display',
+                                    'inline-block');
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
             },
             clearCampo(idForm, btn) {
                 var nombre = $('#' + idForm + ' input[name="nombreUsuario"]');
@@ -176,24 +182,28 @@
             },
             compNombre(idForm, btn) {
                 var nombre = $('#' + idForm + ' input[name="nombreUsuario"]');
-                fetch("controladorUsuario?operacion=compNombre&user=" + nombre.val())
-                    .then(response => {
-                        return response.json();
-                    })
-                    .then(dat => {
-                        if (dat == 1) {
-                            $(nombre).siblings('div.ui.red.pointing.label').html('');
-                            $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
-                        } else {
-                            $(nombre).siblings('div.ui.red.pointing.label').html(
-                                'Este nombre de usuario ya está ocupado');
-                            $(nombre).siblings('div.ui.red.pointing.label').css('display', 'inline-block');
-                            $(btn).addClass('disabled');
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
+
+                if (nombre.val().trim() != "") {
+                    fetch("controladorUsuario?operacion=compNombre&user=" + nombre.val().trim())
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(dat => {
+                            if (dat == 1) {
+                                $(nombre).siblings('div.ui.red.pointing.label').html('');
+                                $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
+                            } else {
+                                $(nombre).siblings('div.ui.red.pointing.label').html(
+                                    'Este nombre de usuario ya está ocupado');
+                                $(nombre).siblings('div.ui.red.pointing.label').css('display',
+                                    'inline-block');
+                                $(btn).addClass('disabled');
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
             },
             cargarDatos() {
                 var id = $('#codigoUsuario').val();

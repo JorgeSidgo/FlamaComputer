@@ -13,16 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Nombre del Servlet: ControladorUsuario Version: 1.0 Fecha: 17/09/2018
  *
- * @authors Jorge Sidgo-Pimentel Benjamín Ramirez Abdiel Martinez Francisco
- * Montoya
+ * @author Jorge Sidgo-Pimentel
  */
 public class ControladorUsuario extends HttpServlet
 {
