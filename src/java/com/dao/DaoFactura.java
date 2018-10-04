@@ -36,13 +36,47 @@ public class DaoFactura extends Conexion
         return n;
     }
     
+    public int numeroCliente() throws Exception{
+        int res= 0;
+        try
+        {
+            this.conectar();
+            
+            
+            String sql="select IFNULL(max(codigoCliente)+1,1) as n from cliente";
+            PreparedStatement pre= this.getCon().prepareStatement(sql);
+            ResultSet resultset=pre.executeQuery();
+            
+            while(resultset.next()){
+                res=resultset.getInt(1);
+            }
+            
+        } catch (Exception e)
+        {
+            System.out.print("error al conseguir numero clieten"+e.getMessage());
+        }finally
+        {
+            this.desconectar();
+        }
+        return res;
+    }
+    
 //    public void insertar(Factura fact) throws Exception{
-    public int insertar(Factura fact, List<DetalleFactura> detalle) throws Exception{
-        //            String res="OK";
+    public int insertar(Cliente cliente, Factura fact, List<DetalleFactura> detalle) throws Exception{
+        
             int result=0;
         try
         {
             this.conectar();
+            
+//            INSERTAR CLIENTE
+            String sqlCliente = "call insertarCliente(?, ?, ?)";
+            PreparedStatement preCliente= this.getCon().prepareCall(sqlCliente);
+            preCliente.setString(1, cliente.getNombre());
+            preCliente.setString(2, cliente.getApellidos());
+            preCliente.setString(3, cliente.getDireccion());
+            result=preCliente.executeUpdate();
+            result=0;
             
 //INSERTAR FACTURA            
             String sqlFactura="call nuevaFactura(?,?,?,?,?)";
@@ -65,13 +99,13 @@ public class DaoFactura extends Conexion
                 pre2.setInt(2, detalleFactura.getCodigoProducto());
                 pre2.setInt(3, detalleFactura.getCantidad());
                 pre2.setDouble(4, detalleFactura.getTotal());
-                pre2.executeUpdate();
+                result=pre2.executeUpdate();
                 
 //                RESTA PRODUCTO AL STOCK
                 PreparedStatement pre3 = this.getCon().prepareCall(sqlRestar);
                 pre3.setInt(1, detalleFactura.getCodigoProducto());
                 pre3.setInt(2, detalleFactura.getCantidad());
-                pre3.executeUpdate();
+                result=pre3.executeUpdate();
                 
             }
             
@@ -118,3 +152,4 @@ public class DaoFactura extends Conexion
         return fact;
     }
 }
+
