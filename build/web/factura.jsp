@@ -351,6 +351,19 @@ let app= new Vue({
                 this.isdatocliente=true;
             }
         },
+        datosCliente(val){
+            this.isCliente=false;
+            this.cliente.nombre=val[0].value;
+            this.cliente.apellido=val[1].value;
+            this.cliente.direccion=val[2].value;
+        },
+        habilitar(val){
+            if (val.length>2) {
+                this.isdatocliente=false;
+            }else{
+                this.isdatocliente=true;
+            }
+        },
 
         //METODOS LOCALES
         subtotal(precio,cantidad){

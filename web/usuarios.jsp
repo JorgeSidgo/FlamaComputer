@@ -240,17 +240,17 @@
         app.compNombre("frmRegistrar", "#btnRegistrar");
     });
 
-    $('#frmEditar input[name="nombreUsuario"]').focusout(function () {
+   /*  $('#frmEditar input[name="nombreUsuario"]').focusout(function () {
         app.compNombre("frmEditar", "#btnEditar");
-    });
+    }); */
 
     $('#frmRegistrar input[name="nombreUsuario"]').focus(function () {
         app.clearCampo("frmRegistrar", "#btnRegistrar");
     });
 
-    $('#frmEditar input[name="nombreUsuario"]').focus(function () {
+    /* $('#frmEditar input[name="nombreUsuario"]').focus(function () {
         app.clearCampo("frmEditar", "#btnEditar");
-    });
+    }); */
 
     $('input[name="passConf"]').focusout(function () {
         app.compContra();
