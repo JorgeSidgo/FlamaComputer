@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="a87f310b-e3d9-4b63-83af-c5d4e14459af">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="67"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="fechaInit" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select * from v_facturas where fechaRegistro >= $P{fechaInit} and fechaRegistro <= $P{fechaFin}]]>
+	</queryString>
+	<field name="codigoFactura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numeroFactura" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoVendedor" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoCliente" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="totalVenta" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fechaRegistro" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomCliente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomVendedor" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="575" splitType="Stretch">
+			<image vAlign="Bottom">
+				<reportElement mode="Opaque" x="0" y="234" width="85" height="241" backcolor="#000000" uuid="9f5325a0-841b-4cd0-b203-d9a311a139f3"/>
+				<imageExpression><![CDATA["silhouette2.jpg"]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="-20" y="234" width="20" height="241" backcolor="#000000" uuid="cf9eff4a-ff04-46f1-908c-e2ea9d1c9e83"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="475" width="105" height="100" backcolor="#666666" uuid="2d2f30b3-ed6b-4ea8-8703-af263563f993"/>
+				<textField>
+					<reportElement style="Column header" x="0" y="0" width="104" height="73" forecolor="#000000" uuid="da5087d1-73b4-4fdb-85ac-5c6aaa31c9db"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="58" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="0" y="77" width="104" height="20" forecolor="#000000" uuid="463826b0-d357-494d-abd0-fe862fe7b364"/>
+					<box leftPadding="4" rightPadding="4"/>
+					<textElement textAlignment="Center">
+						<font size="16" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement mode="Transparent" x="42" y="73" width="20" height="1" backcolor="#FFFFFF" uuid="b9e8bebe-8c73-4395-8572-34bc3e79333d"/>
+				</line>
+			</frame>
+		</band>
+	</background>
+	<title>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="0" width="802" height="67" uuid="211ae830-3702-4f0b-a6df-3b2a22e78264"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="54" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[Facturas]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="232" y="67" width="568" height="37" uuid="c627b222-3187-43a6-9088-af5c84dcca8c"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Entre $P{fechaInit} y $P{fechaFin}]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="97" y="5" width="705" height="20" backcolor="#666666" uuid="f64d5ebf-cd4f-42ef-9a7a-e251bd6e49dc"/>
+				<staticText>
+					<reportElement style="Column header" x="0" y="0" width="117" height="15" uuid="b2f94699-240e-4c04-9fb4-bcef00ea7b56"/>
+					<text><![CDATA[codigoFactura]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="117" y="0" width="117" height="15" uuid="2822adb3-3523-41b4-8b65-89f81b916d9c"/>
+					<text><![CDATA[numeroFactura]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="234" y="0" width="117" height="15" uuid="15eae6ae-0204-4c0b-94d3-0ea2f48ffb10"/>
+					<text><![CDATA[nomCliente]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="351" y="0" width="117" height="15" uuid="3d93b080-b5df-4f23-931b-de1352fe678d"/>
+					<text><![CDATA[nomVendedor]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="468" y="0" width="117" height="15" uuid="b1cdb5db-00c5-4559-90f1-17180b849517"/>
+					<text><![CDATA[totalVenta]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Column header" x="585" y="0" width="117" height="15" uuid="52b80431-b753-42e9-bf80-a401b7d37ce0"/>
+					<text><![CDATA[fechaRegistro]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<frame>
+				<reportElement x="97" y="1" width="705" height="15" uuid="d34be4a2-8040-44af-b420-cab8470fc1ba"/>
+				<textField>
+					<reportElement style="Detail" x="0" y="0" width="117" height="15" uuid="bed4cdb5-b845-4b5a-9530-931c21a8c7ba"/>
+					<textFieldExpression><![CDATA[$F{codigoFactura}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="117" y="0" width="117" height="15" uuid="eca52ddc-4a7e-4d4f-8946-b1232e1df68e"/>
+					<textFieldExpression><![CDATA[$F{numeroFactura}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="234" y="0" width="117" height="15" uuid="5fc47629-fb4b-4355-9650-a6bbf63987c9"/>
+					<textFieldExpression><![CDATA[$F{nomCliente}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="351" y="0" width="117" height="15" uuid="75b870e1-9735-4cff-88ec-51f1521e2d84"/>
+					<textFieldExpression><![CDATA[$F{nomVendedor}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="468" y="0" width="117" height="15" uuid="bdb73a8d-5c9c-4fb0-9909-11c2ae30e56b"/>
+					<textFieldExpression><![CDATA[$F{totalVenta}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Detail" x="585" y="0" width="117" height="15" uuid="8ae998a7-a33d-4250-bf87-297b9f0c0b3b"/>
+					<textFieldExpression><![CDATA[$F{fechaRegistro}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="97" y="16" width="705" height="1" uuid="95700eda-3ef8-4c83-b988-7407b1289759"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="39" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="671" y="0" width="131" height="20" forecolor="#000000" uuid="a5461ad3-f52f-4691-b77f-edb7ac7e7538"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
