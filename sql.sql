@@ -5,7 +5,6 @@
 drop database if exists facturacion;
 create database if not exists facturacion;
 use facturacion;
-
 -- TABLAS --
 -- -----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -237,6 +236,7 @@ where f.numeroFactura=codigo;
 
 end$
 
+
 delimiter $
 create procedure detalleFactura(in factura int, producto int, cantidad int, sub double)
 begin
@@ -298,6 +298,13 @@ create procedure mostrarVendedor()
 begin
 	select * from vendedor;
 end $
+
+delimiter $
+create procedure grafica1()
+begin 
+	SET lc_time_names = 'es_MX';
+	select count(*) as cantidad, MONTHNAME(fechaRegistro) as mes from factura group by MONTHNAME(fechaRegistro);
+end$
 
 -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ##### DATOS DE PRUEBA ######

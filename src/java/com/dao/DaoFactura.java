@@ -4,6 +4,7 @@ import com.conexion.Conexion;
 import com.modelo.Cliente;
 import com.modelo.DetalleFactura;
 import com.modelo.Factura;
+import com.modelo.GraficaDatos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.*;
@@ -150,6 +151,35 @@ public class DaoFactura extends Conexion
         }
         
         return fact;
+    }
+    
+    public List<GraficaDatos> graficaVentasMes () throws Exception{
+        List<GraficaDatos> datos=new ArrayList();
+        try
+        {
+            this.conectar();
+            String sql="call grafica1()";
+            PreparedStatement  pres = this.getCon().prepareStatement(sql);
+            ResultSet res= pres.executeQuery();
+            
+            while(res.next()){
+                GraficaDatos data= new GraficaDatos();
+                
+                data.setCantidad(res.getInt(1));
+                data.setNombreMes(res.getString(2) );
+                
+                datos.add(data);
+            }
+            
+        } catch (Exception e)
+        {
+            
+        }
+        finally{
+            this.desconectar();
+        }
+        
+        return datos;
     }
 }
 
