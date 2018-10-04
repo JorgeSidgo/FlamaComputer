@@ -61,6 +61,7 @@ create table factura
     codigoVendedor int(11),
     codigoCliente int(11),
     totalVenta double,
+    totalIVA double,
     fechaRegistro timestamp
 );
 
@@ -69,10 +70,7 @@ create table detalleFactura
 	codigoDetalle int(11) auto_increment primary key unique,
     codigoFactura int(11),
     codigoProducto int(11),
-    codigoBarra varchar(50),
-    nombreProducto varchar(80),
     cantidad int(11),
-    precioVenta double,
     total double
 );
 -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -216,9 +214,9 @@ end $
 ## FACTURA	------------------------------------------------------------
 
 delimiter $
-create procedure nuevaFactura(in numeroF int, vendedor int, cliente int, total double,fecha timestamp)
+create procedure nuevaFactura(in numeroF int, vendedor int, cliente int, total double, totaliva double)
 begin
-	insert into factura values(null, numeroF,vendedor,cliente,total,fecha);
+	insert into factura values(null, numeroF,vendedor,cliente,total, totaliva, now());
 end $
 
 delimiter $
@@ -240,6 +238,18 @@ where f.numeroFactura=codigo;
 end$
 
 delimiter $
+create procedure detalleFactura(in factura int, producto int, cantidad int, sub double)
+begin
+	insert into detalleFactura values(null,factura,producto,cantidad,sub);
+end$
+
+delimiter $
+create procedure restarStock(in codigo int, cantidad int)
+begin 
+	update producto set stockActual = (stockActual - cantidad) where codigoProducto = codigo;
+end $
+
+delimiter $
 create procedure detalle(in codigo int)
 begin
 	select p.nombreProducto as producto, Format(p.precioVenta,2) as precio, d.cantidad, Format(d.total,2) as subtotal from detalleFactura d 
@@ -252,7 +262,6 @@ create procedure insertarCliente(in nombre varchar(50), apellido varchar(50), di
 begin
 	insert into cliente values(null, nombre, apellido, direccion);
 end $
-
 
 ## Vendedor
  -- insertar vendedor
