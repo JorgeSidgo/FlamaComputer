@@ -247,12 +247,11 @@ begin
 end $
 
 ##	CLIENTE	--------------------------------------------
-delimiter$
+delimiter $
 create procedure insertarCliente(in nombre varchar(50), apellido varchar(50), direccion varchar(50))
 begin
 	insert into cliente values(null, nombre, apellido, direccion);
 end $
-
 
 
 ## Vendedor
@@ -302,8 +301,9 @@ insert into rol values(null, 'ndSn', 'Vendedor');
 
 insert into usuario values(null, 'sidgo', sha1('123'), 1, 1);
 insert into usuario values(null, 'lenodardo', sha1('321'), 3, 1);
-insert into usuario values(null, 'elbenja', sha1('123'), 1, 1);
+insert into usuario values(null, 'elbenja', sha1('123'), 3, 1);
 insert into usuario values(null, 'anb98', sha1('123'), 1,1);
+insert into usuario values(null, 'anb99', sha1('123'), 3,1);
 
 call insertarProducto('Monitor LED 24"', 129.45, 100, 275, 'aa');
 call insertarProducto('Procesador Intel Core i7 7700', 443.45, 10, 25, 'aa');
@@ -313,7 +313,7 @@ call insertarProducto('Procesador AMD Ryzen', 780.67, 21, 30, 'aa');
 -- call modificarProducto(6,'Nelprro',0.25,12,24,null);
 
 insert into vendedor values
-(null,'Alexander','Coreas','123456','por ahi','123456','789456',1,1),
-(null,'Julio','Cesar','456789','por alla','123456','789456',1,1);
+(null,'Alexander','Coreas','123456','por ahi','123456','789456',3,1),
+(null,'Julio','Cesar','456789','por alla','123456','789456',5,1);
 
 

@@ -185,6 +185,16 @@ let app= new Vue({
                 window.location='productos.jsp'
             });
         }
+
+        if (<%= request.getSession().getAttribute("idVendedor") %>==0) {
+            swal(
+                'Su cuenta no es de tipo VENDEDOR',
+                'Su cuenta debe ser de tipo vendedor para realizar una venta',
+                'error'
+            ).then(()=>{
+                window.location='usuarios.jsp'
+            });
+        }
         for (let i = 0; i < datosP.length; i++) {
                 this. campos[0].options.push({val: datosP[i].codigo , text: datosP[i].nombre}); 
             }
@@ -285,7 +295,7 @@ let app= new Vue({
             
             let datos={
                 nfactura: <%= daoF.numeroFactura() %>,
-                vendedor:1,
+                vendedor:<%= request.getSession().getAttribute("idVendedor") %>,
                 cliente: this.cliente,
                 total:this.total,
                 totalIVA: this.totalIVA,
