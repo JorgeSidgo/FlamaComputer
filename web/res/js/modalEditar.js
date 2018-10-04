@@ -96,6 +96,9 @@ Vue.component('modal-editar', {
                 }).catch(res => {
                     console.log(res);
                 });
+        },
+        cancelar() {
+            resetFrm(this.id_form, "#btnEditar");
         }
     },
 
@@ -137,7 +140,7 @@ Vue.component('modal-editar', {
                     </form>                 
                 </div>
                 <div class="actions">
-                    <button class="ui black deny button">
+                    <button class="ui black deny button" @click="cancelar">
                         Cancelar
                     </button>
                     <button class="ui right primary button" @click="editar" id="btnEditar">
