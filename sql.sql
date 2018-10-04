@@ -294,8 +294,7 @@ insert into rol values(null, 'ndSn', 'Vendedor');
 insert into usuario values(null, 'sidgo', sha1('123'), 1, 1);
 insert into usuario values(null, 'lenodardo', sha1('321'), 3, 1);
 insert into usuario values(null, 'elbenja', sha1('123'), 1, 1);
-
-insert into usuario values(null, 'anb98', sha1('123'), 1,3);
+insert into usuario values(null, 'anb98', sha1('123'), 1,1);
 
 call insertarProducto('Monitor LED 24"', 129.45, 100, 275, 'aa');
 call insertarProducto('Procesador Intel Core i7 7700', 443.45, 10, 25, 'aa');
