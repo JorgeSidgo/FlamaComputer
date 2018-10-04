@@ -140,10 +140,10 @@ let app= new Vue({
     data:{
         modal:"registrar",
         cliente:{
-            codigo:1,
+            codigo: <%= daoF.numeroCliente() %>,
             nombre:"[Registre un ",
             apellido: "cliente]",
-            direccion: null,
+            direccion: "",
         },
         isdatocliente:true,
         isCliente:true,
@@ -286,7 +286,7 @@ let app= new Vue({
             let datos={
                 nfactura: <%= daoF.numeroFactura() %>,
                 vendedor:1,
-                cliente: this.cliente.codigo,
+                cliente: this.cliente,
                 total:this.total,
                 totalIVA: this.totalIVA,
                 efectivo: val[1].value,

@@ -213,7 +213,7 @@ begin
 	select * from producto where nomP like concat('%',nomP,'%');
 end $
 
-## FACTURA
+## FACTURA	------------------------------------------------------------
 
 delimiter $
 create procedure nuevaFactura(in numeroF int, vendedor int, cliente int, total double,fecha timestamp)
@@ -245,6 +245,15 @@ begin
 	select p.nombreProducto as producto, Format(p.precioVenta,2) as precio, d.cantidad, Format(d.total,2) as subtotal from detalleFactura d 
 	inner join producto p on p.codigoProducto= d.codigoProducto where d.codigoFactura=codigo;
 end $
+
+##	CLIENTE	--------------------------------------------
+delimiter$
+create procedure insertarCliente(in nombre varchar(50), apellido varchar(50), direccion varchar(50))
+begin
+	insert into cliente values(null, nombre, apellido, direccion);
+end $
+
+
 
 ## Vendedor
  -- insertar vendedor
@@ -306,3 +315,5 @@ call insertarProducto('Procesador AMD Ryzen', 780.67, 21, 30, 'aa');
 insert into vendedor values
 (null,'Alexander','Coreas','123456','por ahi','123456','789456',1,1),
 (null,'Julio','Cesar','456789','por alla','123456','789456',1,1);
+
+

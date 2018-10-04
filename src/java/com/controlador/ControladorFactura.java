@@ -7,6 +7,7 @@ package com.controlador;
 
 import com.dao.DaoFactura;
 import com.google.gson.*;
+import com.modelo.Cliente;
 import com.modelo.DetalleFactura;
 import com.modelo.Factura;
 import java.io.IOException;
@@ -68,11 +69,19 @@ public class ControladorFactura extends HttpServlet
                     Factura fact = new Factura();
                     fact.setNumero(objeto.get("nfactura").getAsInt());
                     fact.setVendedor(objeto.get("vendedor").getAsInt());
-                    fact.setCliente(objeto.get("cliente").getAsInt());
                     fact.setTotal(objeto.get("total").getAsDouble());
                     fact.setTotalIVA(objeto.get("totalIVA").getAsDouble());
                     request.getSession().setAttribute("efectivo", objeto.get("efectivo").getAsString());
                     request.getSession().setAttribute("cambio", objeto.get("cambio").getAsString());
+                    
+                    //DATOS CLIENTE
+                    JsonObject objetoCliente = objeto.get("cliente").getAsJsonObject();
+                     
+                    Cliente cliente= new Cliente();
+                    fact.setCliente(objetoCliente.get("codigo").getAsInt());
+                    cliente.setNombre(objetoCliente.get("nombre").getAsString());
+                    cliente.setApellidos(objetoCliente.get("apellido").getAsString());
+                    cliente.setDireccion(objetoCliente.get("direccion").getAsString());
                     
                     //OBTIENE CADA OBJETO DE LA PROPIEDAD TIPO ARRAY "DETALLE"  DEL JSON
                     JsonArray detalle = objeto.get("detalle").getAsJsonArray();
@@ -94,7 +103,7 @@ public class ControladorFactura extends HttpServlet
                         fila.add(regDetalle);
                     }
                     
-                    out.print(daoF.insertar(fact, fila));
+                       out.print(daoF.insertar(cliente, fact, fila));
                     
                 }else if(op.equals("2")){
 //                    mostrar reporte
