@@ -294,15 +294,14 @@ insert into rol values(null, 'ndSn', 'Vendedor');
 insert into usuario values(null, 'sidgo', sha1('123'), 1, 1);
 insert into usuario values(null, 'lenodardo', sha1('321'), 3, 1);
 insert into usuario values(null, 'elbenja', sha1('123'), 1, 1);
+insert into usuario values(null, 'anb98', sha1('123'), 1,1);
 
-insert into usuario values(null, 'anb98', sha1('123'), 1,3);
-
-call insertarProducto('Elotitos', 0.10, 10, 25, 'aa');
-call insertarProducto('Lays', 0.25, 10, 25, 'aa');
-call insertarProducto('Sibas', 0.25, 10, 25, 'aa');
-call insertarProducto('Churros', 0.10, 10, 25, 'aa');
-call insertarProducto('chocobitos', 0.25, 10, 25, 'aa');
-call modificarProducto(6,'Nelprro',0.25,12,24,null);
+call insertarProducto('Monitor LED 24"', 129.45, 100, 275, 'aa');
+call insertarProducto('Procesador Intel Core i7 7700', 443.45, 10, 25, 'aa');
+call insertarProducto('Tarjeta Gráfica AMD Radeon rx550', 550.87, 10, 18, 'aa');
+call insertarProducto('Case Gamer xD', 75.90, 60, 130, 'aa');
+call insertarProducto('Procesador AMD Ryzen', 780.67, 21, 30, 'aa');
+-- call modificarProducto(6,'Nelprro',0.25,12,24,null);
 
 insert into vendedor values
 (null,'Alexander','Coreas','123456','por ahi','123456','789456',1,1),
