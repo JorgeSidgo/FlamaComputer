@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author jsidg
+ * @author Abdiel
  */
 public class ControladorFactura extends HttpServlet
 {
@@ -94,7 +94,7 @@ public class ControladorFactura extends HttpServlet
                         fila.add(regDetalle);
                     }
                     
-                    daoF.insertar(fact, fila);
+                    out.print(daoF.insertar(fact, fila));
                     
                 }else if(op.equals("2")){
 //                    mostrar reporte

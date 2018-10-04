@@ -81,7 +81,7 @@
                 <table id="dtFactura" class="ui selectable very compact celled table" style="width:100%; margin:auto;">
                     <thead>
                         <tr>
-                            <th>idProducto</th>
+                            <th>Codigo</th>
                             <th>Producto</th>
                             <th>Precio</th>
                             <th>Cantidad</th>
@@ -303,15 +303,24 @@ let app= new Vue({
             }
 
             fetch('ControladorFactura?op=1',parametros)
-            .then(response=>{
-                window.open("ControladorFactura?op=2&nfactura=<%= daoF.numeroFactura() %>", "Factura", "width=500, height=675");
-                swal({
-                        title:'Venta realizada!',
-                        text:'La venta se ha realizado exitosamente',
-                        type:'success',
-                    }).then(()=>{
-                        window.location='factura.jsp';
+            .then(response=>{ return response.json(); })
+            .then(val=>{
+                if(val==0){
+                    swal({
+                        title:'No se pudo registrar la factura',
+                        text:'La venta NO se ha realizado',
+                        type:'error',
                     })
+                }else{
+                    window.open("ControladorFactura?op=2&nfactura=<%= daoF.numeroFactura() %>", "Factura", "width=500, height=675");
+                    swal({
+                            title:'Venta realizada!',
+                            text:'La venta se ha realizado exitosamente',
+                            type:'success',
+                        }).then(()=>{
+                            window.location='factura.jsp';
+                        })
+                }
             })
         },
         efectivo(val){  //SE ACTIVA AL CAMBIAR LA CANTIDAD DE EFECTIVO PARA PAGAR
@@ -328,6 +337,19 @@ let app= new Vue({
         nueveoCliente(){
             $('#cliente').modal('setting', 'autofocus', false).modal('setting', 'closable', false).modal('show');
             
+        },
+        datosCliente(val){
+            this.isCliente=false;
+            this.cliente.nombre=val[0].value;
+            this.cliente.apellido=val[1].value;
+            this.cliente.direccion=val[2].value;
+        },
+        habilitar(val){
+            if (val.length>2) {
+                this.isdatocliente=false;
+            }else{
+                this.isdatocliente=true;
+            }
         },
         datosCliente(val){
             this.isCliente=false;
