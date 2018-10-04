@@ -34,12 +34,14 @@ create table cliente
 create table vendedor
 (
 	codigoVendedor int(11) auto_increment primary key unique,
-    dui varchar(10),
     nombre varchar(50),
     apellidos varchar(50),
+    dui varchar(10),
     direccion varchar(50),
     telefonoOficina varchar(10),
-    telefonoMovil varchar(10)
+    telefonoMovil varchar(10),
+    codigoUsuario int(11),
+    estado int(11) default 1
 );
 
 create table producto
@@ -82,6 +84,7 @@ alter table factura add constraint fk_factura_vendedor foreign key (codigoVended
 alter table factura add constraint fk_factura_cliente foreign key (codigoCliente) references cliente(codigoCliente);
 alter table detalleFactura add constraint fk_detalleFactura_factura foreign key (codigoFactura) references factura(codigoFactura);
 alter table detalleFactura add constraint fk_detalleFactura_producto foreign key (codigoProducto) references producto(codigoProducto);
+alter table vendedor add constraint fk_vendedor_usuario foreign key (codigoUsuario) references usuario (codigoUsuario);
 
 -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ##### VISTAS ######
@@ -242,17 +245,46 @@ begin
 	select p.nombreProducto as producto, Format(p.precioVenta,2) as precio, d.cantidad, Format(d.total,2) as subtotal from detalleFactura d 
 	inner join producto p on p.codigoProducto= d.codigoProducto where d.codigoFactura=codigo;
 end $
-    
+
+## Vendedor
+ -- insertar vendedor
+delimiter $
+create procedure insertarVendedor(in nom varchar(50), in ape varchar(50), in dui varchar(50), in dire varchar(50), in telOf varchar(50), in telMov varchar(50))
+begin
+	insert into vendedor values(null, nom, ape, dui, dire, telOf, telMov, 1, 1);
+end $
+
+-- modificar vendedor
+delimiter $
+create procedure modificarVendedor(in nom varchar(50), in ape varchar(50), in dire varchar(50), in dui varchar(50), in telOf varchar(50), in telMov varchar(50), in cod int(11))
+begin
+	update vendedor set nombre = nom, apellidos = ape, direccion = dire, dui = dui, telefonoOficina = telOf, telefonoMovil = telMov where codigoVendedor = cod;
+end $
+
+-- eliminar fisico vendedor
+delimiter $
+create procedure eliminarFisicoVendedor(in cod int(11))
+begin
+	delete from vendedor where codigoVendedor = cod;
+end $
+
+-- eliminar lógico vendedor
+delimiter $
+create procedure eliminarlogicoVendedor(in cod int(11))
+begin 
+	update vendedor set estado = 0 where codigoVendedor = cod;
+end $
+
+-- mostrar vendedor
+delimiter $
+create procedure mostrarVendedor()
+begin
+	select * from vendedor;
+end $
 
 -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ##### DATOS DE PRUEBA ######
 -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-insert into vendedor values
-(null,'123456','Alexander','Coreas','por ahi','123456','789456'),
-(null,'456789','Julio','Cesar','por alla','123456','789456');
-
-
 
 insert into rol values(null, 'mMun', 'Desarrollador');
 insert into rol values(null, 'lcqe0p8=', 'Administrador');
@@ -272,3 +304,6 @@ call insertarProducto('Churros', 0.10, 10, 25, 'aa');
 call insertarProducto('chocobitos', 0.25, 10, 25, 'aa');
 call modificarProducto(6,'Nelprro',0.25,12,24,null);
 
+insert into vendedor values
+(null,'Alexander','Coreas','123456','por ahi','123456','789456',1,1),
+(null,'Julio','Cesar','456789','por alla','123456','789456',1,1);

@@ -12,6 +12,10 @@
         <servlet-name>ControladorProductos</servlet-name>
         <servlet-class>com.controlador.ControladorProductos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControladorVendedor</servlet-name>
+        <servlet-class>com.controlador.ControladorVendedor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControladorUsuario</servlet-name>
         <url-pattern>/controladorUsuario</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>ControladorProductos</servlet-name>
         <url-pattern>/controladorProductos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControladorVendedor</servlet-name>
+        <url-pattern>/ControladorVendedor</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
