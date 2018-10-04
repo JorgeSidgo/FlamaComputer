@@ -292,6 +292,9 @@ public class DaoUsuario extends Conexion
                 {
                     DaoUsuario.idVendedor = daoV.codigoVendedorId(res.getInt("codigoUsuario"));
                 }
+                else{
+                    DaoUsuario.idVendedor=0;
+                }
 
                 respuesta = true;
             } else
