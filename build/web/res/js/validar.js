@@ -75,6 +75,7 @@ function isArith(cadena)
 function resetFrm(form, btn) {
     $('#' + form + ' :input').each(function() {
         $(this).val("");
+        $(this).removeClass("error");
         $(this).siblings('div.ui.red.pointing.label').css('display', 'none');
         $(this).siblings('div.ui.red.pointing.label').html('');
     });

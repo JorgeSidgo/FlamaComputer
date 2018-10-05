@@ -266,9 +266,9 @@ end $
 ## Vendedor
  -- insertar vendedor
 delimiter $
-create procedure insertarVendedor(in nom varchar(50), in ape varchar(50), in dui varchar(50), in dire varchar(50), in telOf varchar(50), in telMov varchar(50))
+create procedure insertarVendedor(in nom varchar(50), in ape varchar(50), in dui varchar(50), in dire varchar(50), in telOf varchar(50), in telMov varchar(50), in idUs int)
 begin
-	insert into vendedor values(null, nom, ape, dui, dire, telOf, telMov, 1, 1);
+	insert into vendedor values(null, nom, ape, dui, dire, telOf, telMov, idUs, 1);
 end $
 
 -- modificar vendedor
@@ -293,10 +293,11 @@ begin
 end $
 
 -- mostrar vendedor
+
 delimiter $
 create procedure mostrarVendedor()
 begin
-	select * from vendedor;
+	select * from vendedor where estado = 1;
 end $
 
 delimiter $
@@ -332,4 +333,4 @@ insert into vendedor values
 (null,'Alexander','Coreas','123456','por ahi','123456','789456',3,1),
 (null,'Julio','Cesar','456789','por alla','123456','789456',5,1);
 
-
+insert into cliente values(null, 'nombre', 'apellido', 'direccion');

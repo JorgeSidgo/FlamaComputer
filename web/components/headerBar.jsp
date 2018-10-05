@@ -10,7 +10,7 @@
         <i class="dropdown icon"></i>
         <div class="menu back-yellow">
             <div class="header lowercase" style="margin-top: 15px !important; margin-bottom: 7px !important;">
-                <%= descRol%>
+                <%= descRol%> 
             </div>
             <div class="divider"></div>
             <a href="">

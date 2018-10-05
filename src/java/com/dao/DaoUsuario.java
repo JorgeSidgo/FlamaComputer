@@ -260,6 +260,34 @@ public class DaoUsuario extends Conexion
         
         return respuesta;
     }
+    
+    public int lastId() throws Exception
+    {
+        int id = 0;
+        
+        try
+        {
+            this.conectar();
+            String sql = "select max(codigoUsuario) as id from usuario;";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            
+            ResultSet res = pre.executeQuery();
+            
+            res.next();
+            
+            id = res.getInt("id");
+            
+        } catch (Exception e)
+        {
+            id = 1;
+        }
+        finally
+        {
+            this.desconectar();
+        }
+        
+        return id;
+    }
 
     public boolean login(Usuario u) throws Exception
     {

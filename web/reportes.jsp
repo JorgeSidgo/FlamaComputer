@@ -18,6 +18,17 @@
                 Reportes
             </div>
         </div>
+        <div class="row">
+            <div class="ui fluid segment" style="width: 100%;">
+                <h4 class="ui dividing header">Reportes de Productos</h4>
+                <div class="ui four item menu">
+                    <a href="reporteProductos.jsp" target="_blank" class="active item">Productos del Sistema</a>
+                    <a href="reportePMVendidos.jsp" target="_blank" class="item">Productos Mas Vendidos</a>
+                    <a href="vendedorVentas.jsp" target="_blank" class="item">Vendedor con más ventas</a>
+                    <a href="clientesSistema.jsp" target="_blank" class="item">Clientes en el Sistema</a>
+                </div>
+            </div>
+        </div>
 
           <div class="row">
             <div class="ui fluid segment" style="width: 100%;">
@@ -31,20 +42,20 @@
         <div class="row">
             <div class="ui fluid segment" style="width: 100%;">
                 <h4 class="ui dividing header">Facturas comprendidas:</h4>
-                <form action="reportes/reporteRango.jsp" method="POST" class="ui form" style="width: 50%;">
+                <form action="reporteRango.jsp" method="POST" class="ui form" style="width: 50%;">
                     <div class="field">
                         <label>Desde:</label>
-                        <input type="date" name="init">
+                        <input type="text" placeholder="AAAA-mm-dd" class="fecha" name="init">
                       </div>
                       <div class="field">
                         <label>Hasta:</label>
-                        <input type="date" name="fin">
+                        <input type="text" placeholder="AAAA-mm-dd" class="fecha" name="fin">
                       </div>
-                      <button class="ui green button" type="submit">Generar</button>
+                      <button class="ui green button" name="btnEnviar" type="submit" value="Papu">Generar</button>
                 </form>
             </div>
         </div>
-
+        
     </div>
 </div>
 

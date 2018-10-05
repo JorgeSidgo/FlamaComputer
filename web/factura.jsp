@@ -38,7 +38,7 @@
 
 <div id="app">
 
-    <modal id='modalEliminar'titulo="Facturar" :campos="campos" :para='modal' @enviado='enviado' @cambio='cambio' @cancelar='cancelar'></modal>
+    <modal id='modalEliminar'titulo="Facturar" :campos="campos" :para='modal' @enviado='enviado' @cambio='cambio' @cancelar='cancelar' @cantidad="cantidad"></modal>
     <modal id='cliente'titulo="Cliente" :campos="campoCliente" :para='modal' @enviado='datosCliente' :deshabilitarenviar='isdatocliente' @cambio="habilitar"></modal>
     <modal id='factura'titulo="Facturar" :campos="campoFacturar" :para='modal' :deshabilitarenviar='isEnviarFactura' @efectivo='efectivo' @enviado='registrarFactura'></modal>
     
@@ -389,6 +389,12 @@ let app= new Vue({
                 }
             })
     
+        },
+        cantidad(val){
+            if(val>this.campos[2].max){
+
+                this.campos[2].val=0; 
+            }
         }
     }
     });

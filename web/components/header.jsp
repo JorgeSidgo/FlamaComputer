@@ -39,6 +39,9 @@
     <script src="res/plugins/dataTable/dataTable.jquery.min.js"></script>
     <script src="res/plugins/dataTable/dataTable.semantic.min.js"></script>
 
+    <script src="res\plugins\JQueryMask\jquery.mask.js"></script>
+    <script src="res/js/mask-inputs.js"></script>
+
     <!-- <script src="res/plugins/googleCharts/google-charts.js"></script> -->
     <!--<script src="res\plugins\googleCharts\google-charts.js"></script>-->
 
@@ -81,19 +84,30 @@
     String nombreUsuario="";
     int idPermiso =0;
     String descRol = "";
-    
+    int idVendedor = 0;
     if(session.getAttribute("idUsuario")!=null){
          idUsuario = Integer.parseInt(String.valueOf(sesion.getAttribute("idUsuario")));
          nombreUsuario = String.valueOf(sesion.getAttribute("nombreUsuario"));
         idPermiso = Integer.parseInt(String.valueOf(sesion.getAttribute("idPermiso")));
          descRol = String.valueOf(sesion.getAttribute("descRol"));
+        idVendedor = Integer.parseInt(String.valueOf(sesion.getAttribute("idVendedor")));
     }else{
         response.sendRedirect("login.jsp");
     }
 %>
 
 <body onbeforeunload="HandleBackFunctionality()">
-    <%@include file="menu.jsp" %>
+    <%
+        if(descRol.equals("Vendedor"))
+        { %>
+            <%@include file="menuOtro.jsp" %>
+     <%}
+else { %>
+<%@include file="menu.jsp" %>
+
+<%}
+    %>
+    
     <%@include file="headerBar.jsp" %>
     <div class="pusher">
         <div class="contenedor">
