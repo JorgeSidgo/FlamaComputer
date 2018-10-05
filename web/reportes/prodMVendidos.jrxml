@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="08634d10-e9a9-48a3-a3e0-f1d70a5bc790">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
 	<style name="Detail" fontName="Arial" fontSize="12"/>
-	<queryString>
+	<queryString language="SQL">
 		<![CDATA[select p.codigoProducto, p.nombreProducto, p.precioVenta, sum(df.cantidad) as ventas from producto p
 inner join detallefactura df on df.codigoProducto = p.codigoProducto
-group by df.codigoProducto order by sum(df.cantidad) desc]]>
+group by df.codigoProducto order by sum(df.cantidad) desc
+]]>
 	</queryString>
 	<field name="codigoProducto" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -28,17 +26,17 @@ group by df.codigoProducto order by sum(df.cantidad) desc]]>
 	<title>
 		<band height="70" splitType="Stretch">
 			<image>
-				<reportElement x="356" y="0" width="219" height="64" uuid="80d1a8e8-594f-48f6-bdc2-9c411820303e"/>
+				<reportElement x="275" y="0" width="300" height="64" uuid="80d1a8e8-594f-48f6-bdc2-9c411820303e"/>
 				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="0" y="13" width="329" height="33" uuid="579c36e1-fc1e-4965-b8d0-c968698b1335"/>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="579c36e1-fc1e-4965-b8d0-c968698b1335"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Productos Mas Vendidos	]]></text>
+				<text><![CDATA[Leaf Green Title]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="44eabac4-bac8-45cf-b030-d71ca5ff5ef4"/>
-				<text><![CDATA[Flama Computer]]></text>
+				<text><![CDATA[Leaf Green SubTitle]]></text>
 			</staticText>
 		</band>
 	</title>
