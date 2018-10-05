@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1654e970-bc82-445d-99a3-329fd3980dd2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -31,17 +34,17 @@
 	<title>
 		<band height="70" splitType="Stretch">
 			<image>
-				<reportElement x="275" y="0" width="300" height="64" uuid="0035e5e7-b9cf-44cc-b08f-450b84937895"/>
+				<reportElement x="328" y="0" width="247" height="64" uuid="0035e5e7-b9cf-44cc-b08f-450b84937895"/>
 				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
 			</image>
 			<staticText>
-				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="f3a62c61-34e1-433d-bdf2-a4a7a7479d6a"/>
+				<reportElement style="Title" x="0" y="13" width="328" height="33" uuid="f3a62c61-34e1-433d-bdf2-a4a7a7479d6a"/>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Leaf Green Title]]></text>
+				<text><![CDATA[Productos del Sistema]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="820ea08c-1bb2-478f-bcc3-a84956f81856"/>
-				<text><![CDATA[Leaf Green SubTitle]]></text>
+				<text><![CDATA[Flama Computer]]></text>
 			</staticText>
 		</band>
 	</title>

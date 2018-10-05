@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/K:/Usuarios/Benjamín/Documentos/TAREAS/Daute/FlamaComputer/web/reportes/ticketCompra.jrxml</file>
-            <file>file:/K:/Usuarios/Benjamín/Documentos/TAREAS/Daute/FlamaComputer/web/reportes/prodMVendidos.jrxml</file>
-            <file>file:/K:/Usuarios/Benjamín/Documentos/TAREAS/Daute/FlamaComputer/web/reportes/reproductos.jrxml</file>
-            <file>file:/K:/Usuarios/Benjamín/Documentos/TAREAS/Daute/FlamaComputer/web/reportes/facturasRango.jrxml</file>
             <file>file:/K:/Usuarios/Benjamín/Documentos/TAREAS/Daute/FlamaComputer/src/java/com/controlador/ControladorProductos.java</file>
+            <file>file:/K:/Usuarios/Benjamín/Documentos/TAREAS/Daute/FlamaComputer/web/ticket.jsp</file>
+            <file>file:/K:/Usuarios/Benjamín/Documentos/TAREAS/Daute/FlamaComputer/web/reportes.jsp</file>
             <file>file:/K:/Usuarios/Benjamín/Documentos/TAREAS/Daute/FlamaComputer/src/java/com/controlador/ControladorFactura.java</file>
             <file>file:/K:/Usuarios/Benjamín/Documentos/TAREAS/Daute/FlamaComputer/web/factura.jsp</file>
         </group>

@@ -44,6 +44,16 @@
                 </form>
             </div>
         </div>
+        
+        <div class="row">
+            <div class="ui fluid segment" style="width: 100%;">
+                <h4 class="ui dividing header">Reportes de Productos</h4>
+                <div class="ui three item menu">
+                    <a href="reporteProductos.jsp" class="active item">Productos del Sistema</a>
+                    <a href="reportePMVendidos.jsp" class="item">Productos Mas Vendidos</a>
+                </div>
+            </div>
+        </div>
 
     </div>
 </div>
