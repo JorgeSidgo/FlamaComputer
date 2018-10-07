@@ -125,7 +125,7 @@ create procedure registrarUsuario(
     in rol int
 )
 begin
-	insert into usuario values(null, nom, sha1(contra), rol, 1);
+	insert into usuario values (null, nom, sha1(contra), rol, 1);
 end
 $$
 
@@ -154,7 +154,7 @@ create procedure compNombreUsuario(
 	in nom varchar(50)
 )
 begin
-	select * from usuario where nombreUsuario = nom;
+	select count(codigoUsuario) as numero from usuario where nombreUsuario = nom;
 end
 $$
 

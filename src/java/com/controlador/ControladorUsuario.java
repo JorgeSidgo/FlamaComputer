@@ -165,7 +165,7 @@ public class ControladorUsuario extends HttpServlet
             }
         } catch (Exception e)
         {
-            out.print("Exception en el login" + e.getMessage());
+            out.print("Exception en Usuario " + e.getMessage());
         }
 
         out.print(msj);
