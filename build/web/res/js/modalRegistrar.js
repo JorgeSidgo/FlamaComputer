@@ -117,18 +117,18 @@ Vue.component('modal-registrar', {
                                 </option>  
                             </select>
                             <div class="ui radio checkbox" v-else-if="campo.type == 'radio'" v-for="(op,index) in campo.options" :key='index'>
-                                <input type="radio" name="campo.name" tabindex="0" class="hidden" v-model='campo.value' :value='op.val' :checked='index==0'>
+                                <input type="radio" name="campo.name" tabindex="0" class="hidden" :value='op.val' :checked='index==0'>
                                 <label>{{op.text}}</label>
                             </div>
 
                             <div class="ui checkbox" v-else-if="campo.type == 'checkbox'" v-for="(op,index) in campo.options" :key='index'>
-                                <input type="checkbox" tabindex="0" class="hidden" name="campo.name" v-model='campo.value' :value='op.val'>
+                                <input type="checkbox" tabindex="0" class="hidden" name="campo.name" :value='op.val'>
                                 <label>{{op.text}}</label>
                             </div>
 
-                            <input v-else-if="campo.type == 'number'" class="requerido" :type="campo.type" :name="campo.name" :min="campo.min" :max="campo.max" :id="campo.name" v-model.number="campo.val" :step='campo.step' :disabled='campo.disabled'>
+                            <input v-else-if="campo.type == 'number'" class="requerido" :type="campo.type" :name="campo.name" :min="campo.min" :max="campo.max" :id="campo.name" :step='campo.step' :disabled='campo.disabled'>
 
-                            <input v-else class="requerido" :type="campo.type" :name="campo.name" :id="campo.name" v-model="campo.val" :disabled='campo.disabled'>
+                            <input v-else class="requerido" :type="campo.type" :name="campo.name" :id="campo.name" :disabled='campo.disabled'>
                             <div class="ui red pointing label" style="display: none;">
                             </div>
                         </div>

@@ -77,6 +77,11 @@
                     type: 'password'
                 },
                 {
+                    label: 'Confirmar contraseña:',
+                    name: 'confPass',
+                    type: 'password'
+                },
+                {
                     label: 'Rol:',
                     name: 'codigoRol',
                     type: 'select',
@@ -87,11 +92,7 @@
                         {
                             val: '2',
                             text: 'Desarrollador'
-                        },
-                        {
-                            val: '3',
-                            text: 'Vendedor'
-                        },
+                        }
                     ]
                 },
 
@@ -122,11 +123,7 @@
                         {
                             val: '2',
                             text: 'Administrador'
-                        },
-                        {
-                            val: '3',
-                            text: 'Vendedor'
-                        },
+                        }
                     ]
                 },
                 {
@@ -139,7 +136,9 @@
             campos_eliminar: [{
                 name: 'idEliminar',
                 type: 'hidden'
-            }]
+            }],
+            contador: 0,
+            nomActual: 'simona'
         },
         methods: {
             refrescarTabla() {
@@ -162,11 +161,15 @@
                             if (dat == 1) {
                                 $(contra).siblings('div.ui.red.pointing.label').html('');
                                 $(contra).siblings('div.ui.red.pointing.label').css('display', 'none');
+                                this.comp--;
+                                alert(this.comp);
                             } else {
                                 $(contra).siblings('div.ui.red.pointing.label').html(
                                     'La constraseña no concuerda');
                                 $(contra).siblings('div.ui.red.pointing.label').css('display',
                                     'inline-block');
+                                this.comp++;
+                                alert(this.comp);
                             }
                         })
                         .catch(err => {
@@ -180,9 +183,13 @@
                 $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
                 $(btn).removeClass('disabled');
             },
+            controlBoton(idForm, btn) {
+
+            },
             compNombre(idForm, btn) {
                 var nombre = $('#' + idForm + ' input[name="nombreUsuario"]');
-
+                console.log("Nombre:  " + nombre.val().trim());
+                console.log("NombreAc:  " + this.nomActual);
                 if (nombre.val().trim() != "") {
                     fetch("controladorUsuario?operacion=compNombre&user=" + nombre.val().trim())
                         .then(response => {
@@ -192,18 +199,33 @@
                             if (dat == 1) {
                                 $(nombre).siblings('div.ui.red.pointing.label').html('');
                                 $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
+                                $(btn).removeClass('disabled');
+                                if (nombre.val().trim() != this.nomActual) {
+                                    this.contador--;
+                                    alert(this.contador);
+                                }
                             } else {
                                 $(nombre).siblings('div.ui.red.pointing.label').html(
                                     'Este nombre de usuario ya está ocupado');
                                 $(nombre).siblings('div.ui.red.pointing.label').css('display',
                                     'inline-block');
                                 $(btn).addClass('disabled');
+                                if (nombre.val().trim() != this.nomActual) {
+                                    this.contador++;
+                                    alert(this.contador);
+                                }
+                                if(1==1)
+                                {
+                                    alert("tugfa");
+                                }
                             }
                         })
                         .catch(err => {
                             console.log(err);
                         });
                 }
+                console.log("Contador: " + this.contador);
+                this.nomActual = nombre.val().trim();
             },
             cargarDatos() {
                 var id = $('#codigoUsuario').val();
@@ -212,12 +234,35 @@
                         return response.json();
                     })
                     .then(dat => {
-                        $('input[name="nombreUsuario"]').val(dat.nombreUsuario);
-                        $('select[name="codigoRol"]').dropdown('set selected', dat.codigoRol);
+                        $('#frmEditar input[name="nombreUsuario"]').val(dat.nombreUsuario);
+                        $('#frmEditar select[name="codigoRol"]').dropdown('set selected', dat.codigoRol);
                     })
                     .catch(err => {
                         console.log(err);
                     });
+            },
+
+            confirmarContra(idForm, campo1, campo2, btn) {
+                var campo1 = $('#' + idForm + ' input[name="' + campo1 + '"]');
+                var campo2 = $('#' + idForm + ' input[name="' + campo2 + '"]');
+
+                if ((campo1.val().trim() != "") && (campo2.val().trim() != "")) {
+                    if (campo1.val().trim() != campo2.val().trim()) {
+                        $(campo2).siblings('div.ui.red.pointing.label').html(
+                            'Las contraseñas no concuerdan');
+                        $(campo2).siblings('div.ui.red.pointing.label').css('display',
+                            'inline-block');
+                        $(btn).addClass('disabled');
+
+                        return false;
+                    } else {
+                        $(campo2).siblings('div.ui.red.pointing.label').html('');
+                        $(campo2).siblings('div.ui.red.pointing.label').css('display', 'none');
+                        $(btn).removeClass('disabled');
+
+                        return true;
+                    }
+                }
             }
         }
 
@@ -240,14 +285,18 @@
         app.compNombre("frmRegistrar", "#btnRegistrar");
     });
 
-   /*  $('#frmEditar input[name="nombreUsuario"]').focusout(function () {
-        app.compNombre("frmEditar", "#btnEditar");
-    }); */
-
-    $('#frmRegistrar input[name="nombreUsuario"]').focus(function () {
-        app.clearCampo("frmRegistrar", "#btnRegistrar");
+    $('#frmRegistrar input[name="confPass"]').focusout(function () {
+        app.confirmarContra("frmRegistrar", "pass", this.name, "#btnRegistrar");
     });
 
+    /*  $('#frmEditar input[name="nombreUsuario"]').focusout(function () {
+         app.compNombre("frmEditar", "#btnEditar");
+     }); */
+
+    /* $('#frmRegistrar input[name="nombreUsuario"]').focus(function () {
+        app.clearCampo("frmRegistrar", "#btnRegistrar");
+    });
+ */
     /* $('#frmEditar input[name="nombreUsuario"]').focus(function () {
         app.clearCampo("frmEditar", "#btnEditar");
     }); */

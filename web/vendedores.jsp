@@ -18,22 +18,31 @@
             <button class="ui right floated positive labeled icon button" id="btnModalRegistro"><i class="plus icon"></i>Registrar</button>
         </div>
         <!--Este es el modal de ingreso vendedor-->
-        <div class="ui modal" id="modalIngreso">
-            <i class="close icon"></i>
+        <div class="ui small modal" id="modalIngreso">
             <div class="header">
                 Ingresar Vendedor
             </div>
             <div class="content" id="datosVendedor">
                 <form method="get" class="ui form" id="frmIngreso">
                     <div class="field">
-                        <div class="two fields">
+                        <div class="three fields">
                             <div class="field">
-                                <label>Usuario</label>
+                                <label>Usuario:</label>
                                 <input type="text" name="txtUsuarioV" placeholder="Usuario">
+                                <div class="ui red pointing label" style="display: none;">
+                                </div>
                             </div>
                             <div class="field">
-                                <label>Contraseña</label>
+                                <label>Contraseña:</label>
                                 <input type="password" name="txtContraV" placeholder="Contraseña">
+                                <div class="ui red pointing label" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Confirmar contraseña:</label>
+                                <input type="password" name="txtConfContraV" placeholder="Confirmar contraseña">
+                                <div class="ui red pointing label" style="display: none;">
+                                </div>
                             </div>
                         </div>
                         <div class="two fields">
@@ -72,8 +81,8 @@
                     </div>
             </div>
             <div class="actions">
-                <div class="ui black deny button" id="btnCancelarReg">Cancelar</div>
-                <button class="ui submit button green" id="btnRegistrarV">Registrar</button>
+                <button class="ui black deny button" id="btnCancelarReg">Cancelar</button>
+                <button class="ui right button green" id="btnRegistrarV">Registrar</button>
             </div>
             </form>
         </div>
@@ -172,7 +181,7 @@
 <script>
     $(document).ready(function () {
         $('#btnModalRegistro').click(function () {
-            $('#modalIngreso').modal('show');
+            $('#modalIngreso').modal('setting', 'closable', false).modal('show');
         });
 
         $(document).on("click", ".btnEditar", function () {
@@ -408,6 +417,39 @@
         });
     }
 
+    function clearCampo(idForm, btn, campo) {
+                var campo = $('#' + idForm + ' input[name="'+ campo +'"]');
+                $(campo).siblings('div.ui.red.pointing.label').html('');
+                $(campo).siblings('div.ui.red.pointing.label').css('display', 'none');
+                $(btn).removeClass('disabled');
+            }
+
+    function compNombre(idForm, btn) {
+                var nombre = $('#' + idForm + ' input[name="txtUsuarioV"]');
+
+                if (nombre.val().trim() != "") {
+                    fetch("controladorUsuario?operacion=compNombre&user=" + nombre.val().trim())
+                        .then(response => {
+                            return response.json();
+                        })
+                        .then(dat => {
+                            if (dat == 1) {
+                                $(nombre).siblings('div.ui.red.pointing.label').html('');
+                                $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
+                            } else {
+                                $(nombre).siblings('div.ui.red.pointing.label').html(
+                                    'Este nombre de usuario ya está ocupado');
+                                $(nombre).siblings('div.ui.red.pointing.label').css('display',
+                                    'inline-block');
+                                $(btn).addClass('disabled');
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
+            }
+
     //AJAX PARA MODIFICAR VENDEDOR
     function modificarVendedor(datos) {
 
@@ -478,5 +520,14 @@
         $('#btnCancelarReg').click(function () {
             resetFrm("frmIngreso", "btn");
         });
+    });
+</script>
+
+<script>
+    $('#frmIngreso input[name="txtUsuarioV"]').focusout(function () {
+        compNombre("frmIngreso", "#btnRegistrarV");
+    });
+    $('#frmIngreso input[name="txtUsuarioV"]').focus(function () {
+        clearCampo("frmIngreso", "#btnRegistrarV", this.name);
     });
 </script>
