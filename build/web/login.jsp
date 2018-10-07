@@ -36,7 +36,11 @@
     <link rel="stylesheet" href="res/plugins/ripple/ripple.css">
     <script src="res/plugins/ripple/ripple.js"></script>
     <script src="res/plugins/ripple/ripple.init.js"></script>
-
+    <style>
+        body {
+            overflow: hidden;
+        }
+    </style>
 </head>
 
 <body class="body-login">

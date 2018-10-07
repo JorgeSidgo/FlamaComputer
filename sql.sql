@@ -93,6 +93,13 @@ create view v_usuarios as (
     where u.codigoRol = r.codigoRol and u.estado = 1
 );
 
+create view v_facturas as (
+	select f.*, concat(v.nombre," ", v.apellidos) as nombreVendedor, concat(c.nombre," ", c.apellidos) as nombreCliente
+    from factura f, vendedor v, cliente c
+    where f.codigoVendedor = v.codigoVendedor and f.codigoCliente = c.codigoCliente
+);
+
+
 -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ##### PROCEDIMIENTOS ALMACENADOS ######
 -- --------------------------------------------------------------------------------------------------------------------------------------------------------------------
