@@ -255,7 +255,7 @@
             compPerm(nom, op) {
                 console.log("nom: " + nom);
                 console.log("nomAct: " + this.nomActual);
-                if (nom.equals(this.nombreActual)) {
+                if (nom == this.nombreActual) {
                     alert("jaj al chile");
                 } else {
                     alert("nelsonsimon");
