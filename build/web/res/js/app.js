@@ -89,8 +89,8 @@ methods:{
                         <div class="two fields">
                             <div v-for="campo in campos" class="field">
                                 <label>{{campo.label}} </label>
-                                <select class="ui dropdown" v-if="campo.type == 'select'" name="campo.name" :id="campo.name" @change="envio('cambio')">
-                                    <option v-for="(op,i) in campo.options" :value="op.val" :key='i' :id="op.val+'_'+i">
+                                <select class="ui dropdown" v-if="campo.type == 'select'" :name="campo.name" :id="campo.name" @change="envio('cambio')">
+                                    <option v-for="(op,i) in campo.options" :value="op.val" :key='i' :id="op.val+'_'+i" >
                                         {{op.text}}
                                     </option>  
                                 </select>

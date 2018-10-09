@@ -243,7 +243,6 @@ where f.numeroFactura=codigo;
 
 end$
 
-
 delimiter $
 create procedure detalleFactura(in factura int, producto int, cantidad int, sub double)
 begin
