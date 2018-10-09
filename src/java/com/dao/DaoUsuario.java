@@ -58,37 +58,6 @@ public class DaoUsuario extends Conexion
         return json;
     }
     
-    /*public boolean compContra(String contra) throws Exception
-    {
-    boolean respuesta = false;
-    
-    try
-    {
-    this.conectar();
-    String sql = "call registrarUsuario(?,?,?)";
-    PreparedStatement pre = this.getCon().prepareStatement(sql);
-    
-    pre.setString(1, contra);
-    
-    int res = pre.executeUpdate();
-    
-    if(res > 0)
-    {
-    respuesta = true;
-    }
-    
-    } catch (Exception e)
-    {
-    System.out.print(e.getMessage());
-    throw e;
-    } finally
-    {
-    this.desconectar();
-    }
-    
-    return respuesta;
-    }*/
-    
     public boolean compNombre(String nombre) throws Exception
     {
         boolean respuesta = false;
@@ -206,8 +175,15 @@ public class DaoUsuario extends Conexion
                 String eliminar = "";
                 String editar = "";
                     
-                editar = "<button id=\\\"" + res.getInt("codigoUsuario") + "\\\"  class=\\\"ui btnEditar icon primary small button\\\"><i class=\\\"edit icon\\\"></i></button>";
-                eliminar = "<button id=\\\"" + res.getInt("codigoUsuario") + "\\\" @click=\\\"modalEliminar\\\" class=\\\"ui btnEliminar icon negative small button\\\"><i class=\\\"trash icon\\\"></i></button>";
+                if(res.getInt("codigoRol") == 1){}
+                else if (res.getInt("codigoRol") == 3) {
+                    editar = "<button id=\\\"" + res.getInt("codigoUsuario") + "\\\"  class=\\\"ui btnEditar icon primary small button\\\"><i class=\\\"edit icon\\\"></i></button>";
+                    eliminar = "";
+                }
+                else {
+                    editar = "<button id=\\\"" + res.getInt("codigoUsuario") + "\\\"  class=\\\"ui btnEditar icon primary small button\\\"><i class=\\\"edit icon\\\"></i></button>";
+                    eliminar = "<button id=\\\"" + res.getInt("codigoUsuario") + "\\\" @click=\\\"modalEliminar\\\" class=\\\"ui btnEliminar icon negative small button\\\"><i class=\\\"trash icon\\\"></i></button>";
+                }
 
                 usuarios += "{\n"
                         + "\"idUsuario\": \"" + res.getInt("codigoUsuario") + "\", "
