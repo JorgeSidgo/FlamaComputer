@@ -66,27 +66,27 @@ public class ControladorVendedor extends HttpServlet {
                     
                     daoU.registrarUsuario(u);
                     
-                    elemento= datos.get(2);
+                    elemento= datos.get(3);
                     objeto = elemento.getAsJsonObject();
                     ve.setNombre(objeto.get("value").getAsString());
                     
-                    elemento= datos.get(3);
+                    elemento= datos.get(4);
                     objeto = elemento.getAsJsonObject();
                     ve.setApellido(objeto.get("value").getAsString());
                     
-                    elemento= datos.get(4);
+                    elemento= datos.get(5);
                     objeto = elemento.getAsJsonObject();
                     ve.setDui(objeto.get("value").getAsString());
                     
-                    elemento= datos.get(5);
+                    elemento= datos.get(6);
                     objeto = elemento.getAsJsonObject();
                     ve.setDirecciones(objeto.get("value").getAsString());
                     
-                    elemento= datos.get(6);
+                    elemento= datos.get(7);
                     objeto = elemento.getAsJsonObject();
                     ve.setTelMov(objeto.get("value").getAsString());
                     
-                    elemento = datos.get(7);
+                    elemento = datos.get(8);
                     objeto = elemento.getAsJsonObject();
                     ve.setTelOficina(objeto.get("value").getAsString());
                     
