@@ -188,8 +188,6 @@
             },
             compNombre(idForm, btn) {
                 var nombre = $('#' + idForm + ' input[name="nombreUsuario"]');
-                console.log("Nombre:  " + nombre.val().trim());
-                console.log("NombreAc:  " + this.nomActual);
                 if (nombre.val().trim() != "") {
                     fetch("controladorUsuario?operacion=compNombre&user=" + nombre.val().trim())
                         .then(response => {
@@ -200,32 +198,22 @@
                                 $(nombre).siblings('div.ui.red.pointing.label').html('');
                                 $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
                                 $(btn).removeClass('disabled');
-                                if (nombre.val().trim() != this.nomActual) {
-                                    this.contador--;
-                                    alert(this.contador);
-                                }
+                                this.compPerm(nombre.val().trim(), 'ext');
                             } else {
                                 $(nombre).siblings('div.ui.red.pointing.label').html(
                                     'Este nombre de usuario ya está ocupado');
                                 $(nombre).siblings('div.ui.red.pointing.label').css('display',
                                     'inline-block');
                                 $(btn).addClass('disabled');
-                                if (nombre.val().trim() != this.nomActual) {
-                                    this.contador++;
-                                    alert(this.contador);
-                                }
-                                if(1==1)
-                                {
-                                    alert("tugfa");
-                                }
+                                this.compPerm(nombre.val().trim(), 'add');
                             }
                         })
                         .catch(err => {
                             console.log(err);
                         });
                 }
-                console.log("Contador: " + this.contador);
-                this.nomActual = nombre.val().trim();
+
+                
             },
             cargarDatos() {
                 var id = $('#codigoUsuario').val();
@@ -263,6 +251,25 @@
                         return true;
                     }
                 }
+            },
+            compPerm(nom, op) {
+                console.log("nom: " + nom);
+                console.log("nomAct: " + this.nomActual);
+                if (nom == this.nombreActual) {
+                    alert("jaj al chile");
+                } else {
+                    alert("nelsonsimon");
+                    switch (op) {
+                        case 'add':
+                            this.contador++;
+                            break;
+                        case 'ext':
+                            this.contador--;
+                            break;
+                    }
+                }
+                this.nomActual = nom;
+                console.log("Contador: " + this.contador);
             }
         }
 
