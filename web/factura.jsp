@@ -4,6 +4,8 @@
     Author     : jsidg
 --%>
 
+<%@page import="com.modelo.Cliente"%>
+<%@page import="com.dao.DaoCliente"%>
 <%@page import="com.dao.DaoFactura"%>
 <%@page import="java.util.*"%>
 <%@page import="com.modelo.Producto"%>
@@ -11,6 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%  
     DaoProducto daoP= new DaoProducto();
+    DaoCliente daoC= new DaoCliente();
     DaoFactura daoF = new DaoFactura();
     List<Producto> productos = daoP.mostrarProductos();
     
@@ -42,6 +45,38 @@
     <modal id='cliente'titulo="Cliente" :campos="campoCliente" :para='modal' @enviado='datosCliente' :deshabilitarenviar='isdatocliente' @cambio="habilitar"></modal>
     <modal id='factura'titulo="Facturar" :campos="campoFacturar" :para='modal' :deshabilitarenviar='isEnviarFactura' @efectivo='efectivo' @enviado='registrarFactura'></modal>
     
+    <div class="ui modal" id="clienteModal">
+    <div class="header">Buscar cliente</div>
+    <div class="content">
+        <form action="" class="ui form">
+            <div class="field">
+                <label>Cliente</label>
+                <div class="ui fluid search selection dropdown">
+                    <input type="hidden" name="clientes" id="holis">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Buscar cliente</div>
+                    <div class="menu">
+                        <%
+                        List<Cliente> lista=daoC.mostrar();
+                        
+                        for (Cliente cli : lista)
+                            {%>
+                                <div class="item" data-value="<%= cli.getCodigo() %>"> <%= cli.getNombre()+" "+cli.getApellidos() %></div>
+                 <%    }           %>
+                    </div>
+            </div>
+        </form>
+    </div>
+    <div class="actions" style="margin-top:2em">
+        <button class="ui black deny button">
+            Cancelar
+        </button>
+        <button class='ui right green button' id="Enviar" @click="clienteViejo" >
+            Aceptar
+        </button>
+    </div>
+</div>
+</div>
     <div class="ui grid">
         <div class="row">
             <div class="titulo2">
@@ -50,9 +85,12 @@
             </div>
             <div class="titulo2" style='text-align:right'>
                 Cliente: <span>{{cliente.nombre}} {{cliente.apellido}}</span>
-                <button :class='["ui icon button", {positive:isCliente}, {teal:!isCliente} ] ' @click='nueveoCliente'>
+                <button :class='["ui icon button", {positive:isCliente}, {teal:!isCliente} ] ' @click='nueveoCliente' data-tooltip="Agregar cliente" data-position="bottom center">
                     <i class='plus icon' v-if="isCliente"></i> 
                     <i class='pencil alternate icon' v-else ></i> 
+                </button>
+                <button :class='["ui icon button blue" ] ' @click='buscarCliente' data-tooltip="Buscar cliente" data-position="bottom center">
+                    <i class="search icon"></i>
                 </button>
             </div>
         </div>
@@ -64,10 +102,10 @@
                 </button>
                 <input :class="['ui', 'right', 'floated', 'primary', 'button',{disabled:isfacturar},{disabled:isCliente}]" @click="facturar" id="btnFacturar" type='button' value='Facturar'>
                 <div class="ui negative message" v-if="isfacturar||isCliente ">
-                      <ul style="list-style-type: disc; margin-left:1em ">
+                    <ul style="list-style-type: disc; margin-left:1em ">
                         <li v-if="isfacturar">Debe registrar al menos un producto en la factura</li>
                         <li v-if="isCliente">Debe registrar un cliente</li>
-                      </ul>  
+                    </ul>  
                 </div>
             </div>
         </div>
@@ -97,10 +135,10 @@
                             <td class='derecha'>{{ fila.cantidad }}</td>
                             <td class='derecha'>{{ subtotal(fila.precio,fila.cantidad) | moneda }}</td>
                             <td>
-                                <button class='ui icon button blue' @click='editar(fila.id,fila.producto,fila.precio,fila.cantidad,index)'>
+                                <button class='ui icon button blue' @click='editar(fila.id,fila.producto,fila.precio,fila.cantidad,index)' data-tooltip="Editar">
                                     <i class='pencil alternate icon'></i> 
                                 </button>
-                                <button class='ui icon button negative' @click='eliminarProducto(index)'>
+                                <button class='ui icon button negative' @click='eliminarProducto(index,fila.id,fila.producto)' data-tooltip="Eliminar">
                                     <i class="eraser icon"></i>
                                 </button>
                             </td>
@@ -130,7 +168,7 @@ var datosP=[
 <%
     for (Producto elemento : productos)
 {%>
-    {codigo: <%= elemento.getCodigoProducto()  %>  ,nombre: '<%= elemento.getNombreProducto()  %>' ,precio: <%= elemento.getPrecioVenta() %>, stock:  <%= elemento.getStockActual()  %>},
+    {codigo: <%= elemento.getCodigoProducto()  %>  ,nombre: '<%= elemento.getNombreProducto()  %>' ,precio: <%= elemento.getPrecioVenta() %>, stock:  <%= elemento.getStockActual()-elemento.getStockMinimo()  %>},
 <% } %> 
     
     ];
@@ -140,12 +178,13 @@ let app= new Vue({
     data:{
         modal:"registrar",
         cliente:{
-            codigo: <%= daoF.numeroCliente() %>,
-            nombre:"[Registre un ",
-            apellido: "cliente]",
+            codigo: "",
+            nombre:"[Registre un cliente]",
+            apellido: "",
             direccion: "",
         },
         isdatocliente:true,
+        isClienteNuevo:true,
         isCliente:true,
         filaSelecionada:0,
         // isfacturar:true,
@@ -168,6 +207,9 @@ let app= new Vue({
             {label:"Total", name:'total', type:'text',disabled:'disabled', val:''},
             {label:"Efectivo", name:'efectivo', type:'number', step:"any", min:0},
             {label:"Cambio", name:'vuelto', type:'text', disabled:'disabled', val:'$ 0.00' },
+        ],
+        productosSeleccionados:[
+
         ],
         tabla:[
             // {id:1, producto:'churrito', precio:0.10, cantidad:1},
@@ -196,7 +238,7 @@ let app= new Vue({
             });
         }
         for (let i = 0; i < datosP.length; i++) {
-                this. campos[0].options.push({val: datosP[i].codigo , text: datosP[i].nombre}); 
+                this.campos[0].options.push({val: datosP[i].codigo , text: datosP[i].nombre}); 
             }
     },
     computed:{
@@ -251,33 +293,53 @@ let app= new Vue({
             this.campos[2].max=datosP[ind].stock;
         },
         cancelar(){     //SE ACTIVA AL CANCELAR EL MODAL
-            this.modal='registrar';
+            if(this.modal!='registrar'){
+                this.campos[0].options.pop();
+                this.modal='registrar';
+            }
         },
         enviado(val){   //RECIBE Y PROCESA LOS DATOS DEL MODAL
         // console.log(val);
             if(val[0].para=='editar'){
                 this.tabla.splice(this.filaSelecionada,1,{id:val[0].value,producto: val[0].texto, precio: parseFloat(val[1].value), cantidad: parseInt(val[2].value)});
+                this.campos[0].options.pop();
             }else{
-                this.tabla.push({id:val[0].value,producto: val[0].texto, precio: parseFloat(val[1].value), cantidad: parseInt(val[2].value)})
+                this.tabla.push({id:val[0].value,producto: val[0].texto, precio: parseFloat(val[1].value), cantidad: parseInt(val[2].value)});
+                this.productosSeleccionados.push(
+                    {nombre:val[0].texto,valor:val[0].value}
+                );
+
+                this.campos[0].options.forEach((elemento,index) => {
+                    if(val[0].value==elemento.val){
+                        this.campos[0].options.splice(index,1);
+                    }
+                });
             }
             // this.isfacturar=false;
             this.modal='registrar';
         },
         editar(idProducto,nombre, precio, cantidad,indice){
             //ESTABLECE LOS VALORES DEL REGISTRO A CAMBIAR EN EL MODAL
+            this.campos[0].options.push({val: idProducto, text: nombre});
             this.modal='editar';
             this.filaSelecionada=indice;
             this.campos[1].val=precio.toFixed(2);
             this.campos[2].val=cantidad;
 
-            $('.item.active').removeClass('selected');
-            $('.item.active').removeClass('active');
-            $('[data-value='+idProducto+']').addClass('selected');
-            $('[data-value='+idProducto+']').addClass('active');
+            $(function () {
+                let id=idProducto+'_'+(app.campos[0].options.length-1);
+                document.getElementById(id).selected = "true";
 
-            $('.text').html(nombre);
+                $('.item.active').removeClass('selected');
+                $('.item.active').removeClass('active');
+                $('.item:last').addClass('selected');
+                $('.item:last').addClass('active');
+
+                $('.text').text(nombre);
+                
+                $('#modalEliminar').modal('setting', 'closable', false).modal('show');    
+            })
             
-            $('#modalEliminar').modal('setting', 'closable', false).modal('show');
 
         },
 
@@ -287,11 +349,16 @@ let app= new Vue({
         facturar(){     //ABRE EL MODAL PARA PAGAR FACTURA
             this.campoFacturar[0].val='$ '+this.totalIVA;
             this.campoFacturar[1].val=null;
-            this.campoFacturar[2].val='$ 0.00';
+            this.campoFacturar[2].val=0.00;
             $('#factura').modal('setting', 'autofocus', false).modal('setting', 'closable', false).modal('show');
             $('#efectivo').focus();
         },
         registrarFactura(val){      //ENVIA TODOS LOS DATOS AL CONTROLADOR PARA SU REGISTRO EN LA DB
+            var ope=3;
+            if(this.isClienteNuevo){
+                this.cliente.codigo= <%= daoF.numeroCliente() %>
+                ope=1;
+            }
             
             let datos={
                 nfactura: <%= daoF.numeroFactura() %>,
@@ -312,7 +379,7 @@ let app= new Vue({
                 body: 'datos='+JSON.stringify(datos)
             }
 
-            fetch('ControladorFactura?op=1',parametros)
+            fetch('ControladorFactura?op='+ope,parametros)
             .then(response=>{ return response.json(); })
             .then(val=>{
                 if(val==0){
@@ -334,7 +401,7 @@ let app= new Vue({
             })
         },
         efectivo(val){  //SE ACTIVA AL CAMBIAR LA CANTIDAD DE EFECTIVO PARA PAGAR
-            this.campoFacturar[2].val='$ '+(val-this.totalIVA).toFixed(2);
+            this.campoFacturar[2].val=(val-this.totalIVA).toFixed(2);
             if(val>=this.totalIVA){
                 this.isEnviarFactura=false;
             }else{
@@ -347,6 +414,21 @@ let app= new Vue({
         nueveoCliente(){
             $('#cliente').modal('setting', 'autofocus', false).modal('setting', 'closable', false).modal('show');
             
+        },
+        buscarCliente(){
+            $('#clienteModal').modal('setting', 'autofocus', false).modal('setting', 'closable', false).modal('show');
+        },
+        clienteViejo(){
+            let nombre = $('div.text').last().text();
+            if(nombre.length>0){
+                $('#clienteModal').modal('hide');
+                let val=document.getElementById("holis").value;
+                
+                this.cliente.codigo=val;
+                this.cliente.nombre=nombre;
+                this.isCliente=false;
+                this.isClienteNuevo=false;
+            }
         },
         datosCliente(val){
             this.isCliente=false;
@@ -366,7 +448,7 @@ let app= new Vue({
         subtotal(precio,cantidad){
             return precio*cantidad;
         },
-        eliminarProducto(indice){
+        eliminarProducto(indice,id,producto){
             swal({
                 title: '¿Esta seguro que desea eliminar el registro?',
                 text: "No podrá revertir esta acción",
@@ -385,6 +467,8 @@ let app= new Vue({
                         text:'El registor ha sido eliminado',
                         type:'success',
                         timer:1500
+                    }).then(()=>{
+                        this.campos[0].options.push({val: id, text: producto});
                     })
                 }
             })
