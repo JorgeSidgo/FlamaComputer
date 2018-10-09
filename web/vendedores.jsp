@@ -297,29 +297,7 @@
                         });
                 }
             }
-    
-    function confirmarContra(idForm, campo1, campo2, btn) {
-        var campo1 = $('#' + idForm + ' input[name="' + campo1 + '"]');
-        var campo2 = $('#' + idForm + ' input[name="' + campo2 + '"]');
-        
-        if ((campo1.val().trim() != "") && (campo2.val().trim() != "")) {
-            if (campo1.val().trim() != campo2.val().trim()) {
-                $(campo2).siblings('div.ui.red.pointing.label').html(
-                    'Las contraseñas no concuerdan');
-                $(campo2).siblings('div.ui.red.pointing.label').css('display',
-                    'inline-block');
-                $(btn).addClass('disabled');
 
-                return false;
-            } else {
-                $(campo2).siblings('div.ui.red.pointing.label').html('');
-                $(campo2).siblings('div.ui.red.pointing.label').css('display', 'none');
-                $(btn).removeClass('disabled');
-
-                return true;
-            }
-        }
-    }
     //AJAX PARA MODIFICAR VENDEDOR
     function modificarVendedor(datos) {
 
@@ -400,8 +378,5 @@
     });
     $('#frmIngreso input[name="txtUsuarioV"]').focus(function () {
         clearCampo("frmIngreso", "#btnRegistrarV", this.name);
-    });
-    $('#frmIngreso input[name="txtConfContraV"]').focusout(function () {
-        confirmarContra("frmIngreso", "txtContraV", this.name, "#btnRegistrarV");
     });
 </script>
