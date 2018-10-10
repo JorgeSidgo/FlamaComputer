@@ -431,6 +431,7 @@ let app= new Vue({
             }
         },
         datosCliente(val){
+            this.isClienteNuevo=true;
             this.isCliente=false;
             this.cliente.nombre=val[0].value;
             this.cliente.apellido=val[1].value;
