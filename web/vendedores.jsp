@@ -28,19 +28,19 @@
                         <div class="three fields">
                             <div class="field">
                                 <label>Usuario:</label>
-                                <input type="text" name="txtUsuarioV" placeholder="Usuario">
+                                <input type="text" name="txtUsuarioV" placeholder="Usuario" class="requerido">
                                 <div class="ui red pointing label" style="display: none;">
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Contraseña:</label>
-                                <input type="password" name="txtContraV" placeholder="Contraseña">
+                                <input type="password" name="txtContraV" placeholder="Contraseña" class="requerido">
                                 <div class="ui red pointing label" style="display: none;">
                                 </div>
                             </div>
                             <div class="field">
                                 <label>Confirmar contraseña:</label>
-                                <input type="password" name="txtConfContraV" placeholder="Confirmar contraseña">
+                                <input type="password" name="txtConfContraV" placeholder="Confirmar contraseña" class="requerido">
                                 <div class="ui red pointing label" style="display: none;">
                                 </div>
                             </div>
@@ -48,15 +48,18 @@
                         <div class="two fields">
                             <div class="field">
                                 <label>Nombre</label>
-                                <input type="text" name="txtNombreV" placeholder="Nombre">
+                                <input type="text" name="txtNombreV" placeholder="Nombre" class="requerido">
+                                <div class="ui red pointing label" style="display: none;"></div>
                             </div>
                             <div class="field">
                                 <label>Apellido</label>
-                                <input type="text" name="txtApellidoV" placeholder="Apellido">
+                                <input type="text" name="txtApellidoV" placeholder="Apellido" class="requerido">
+                                <div class="ui red pointing label" style="display: none;"></div>
                             </div>
                             <div class="field">
                                 <label>Numero de DUI</label>
-                                <input type="text" class="dui" name="txtDuiV" placeholder="Dui">
+                                <input type="text" class="dui requerido" name="txtDuiV" placeholder="Dui">
+                                <div class="ui red pointing label" style="display: none;"></div>
                             </div>
                         </div>
                     </div>
@@ -64,27 +67,27 @@
                         <div class="two fields">
                             <div class="field">
                                 <label>Dirección</label>
-                                <input type="text" name="txtDireccionV" placeholder="Dirección">
+                                <input type="text" name="txtDireccionV" placeholder="Dirección" class="requerido">
+                                <div class="ui red pointing label" style="display: none;"></div>
                             </div>
                             <div class="field">
                                 <label>Telefono Movil</label>
-                                <input type="text" name="txtTelMovilV" class="telefono" placeholder="0000-0000">
+                                <input type="text" name="txtTelMovilV" class="telefono requerido" placeholder="0000-0000">
+                                <div class="ui red pointing label" style="display: none;"></div>
                             </div>
                             <div class="field">
                                 <label>Telefono Oficina</label>
-                                <input type="text" name="txtTelOfiV" class="telefono" placeholder="0000-0000">
+                                <input type="text" name="txtTelOfiV" class="telefono requerido" placeholder="0000-0000">
+                                <div class="ui red pointing label" style="display: none;"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="field">
-                        <div class="ui error message"></div>
-                    </div>
+                </form>
             </div>
             <div class="actions">
                 <button class="ui black deny button" id="btnCancelarReg">Cancelar</button>
                 <button class="ui right button green" id="btnRegistrarV">Registrar</button>
             </div>
-            </form>
         </div>
         <!--Aqui termina el modal-->
     </div>
@@ -98,6 +101,7 @@
                             <thead>
                                 <tr>
                                     <th>Codigo Vendedor</th>
+                                    <th>Nombre de Usuario</th>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>DUI</th>
@@ -136,15 +140,18 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Nombre</label>
-                        <input type="text" name="txtNombreV" placeholder="Nombre">
+                        <input type="text" name="txtNombreV" placeholder="Nombre" class="requerido">
+                        <div class="ui red pointing label" style="display: none;"></div>
                     </div>
                     <div class="field">
                         <label>Apellido</label>
-                        <input type="text" name="txtApellidoV" placeholder="Apellido">
+                        <input type="text" name="txtApellidoV" placeholder="Apellido" class="requerido">
+                        <div class="ui red pointing label" style="display: none;"></div>
                     </div>
                     <div class="field">
                         <label>Numero de DUI</label>
-                        <input type="text" name="txtDuiV" class="dui" placeholder="Dui">
+                        <input type="text" name="txtDuiV" class="dui requerido" placeholder="Dui">
+                        <div class="ui red pointing label" style="display: none;"></div>
                     </div>
                 </div>
             </div>
@@ -152,27 +159,28 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Dirección</label>
-                        <input type="text" name="txtDireccionV" placeholder="Dirección">
+                        <input type="text" name="txtDireccionV" placeholder="Dirección" class="requerido">
+                        <div class="ui red pointing label" style="display: none;"></div>
                     </div>
                     <div class="field">
                         <label>Telefono Movil</label>
-                        <input type="text" name="txtTelMovilV" class="telefono" placeholder="0000-0000">
+                        <input type="text" name="txtTelMovilV" class="telefono requerido" placeholder="0000-0000">
+                        <div class="ui red pointing label" style="display: none;"></div>
                     </div>
                     <div class="field">
                         <label>Telefono Oficina</label>
-                        <input type="text" name="txtTelOfiV" class="telefono" placeholder="0000-0000">
+                        <input type="text" name="txtTelOfiV" class="telefono requerido" placeholder="0000-0000">
+                        <div class="ui red pointing label" style="display: none;"></div>
                     </div>
                 </div>
             </div>
-            <div class="field">
-                <div class="ui error message"></div>
-            </div>
+        </form>
     </div>
     <div class="actions">
         <div class="ui black deny button">Cancelar</div>
         <button class="ui submit button green" id="btnEditarV">Registrar</button>
     </div>
-    </form>
+
 </div>
 <!--Aqui termina el modal-->
 <script src="tablas/tablaVendedores.js"></script>
@@ -184,208 +192,50 @@
             $('#modalIngreso').modal('setting', 'closable', false).modal('show');
         });
 
+        $(document).on("click", "#btnRegistrarV", function () {
+            var exp = validarVacios("frmIngreso", "btnRegistrarV");
+
+            if (exp == 0) {
+                var datosVendedor = JSON.stringify($('#frmIngreso :input').serializeArray());
+                ingresarVendedor(datosVendedor);
+            }
+        });
+
         $(document).on("click", ".btnEditar", function () {
-            $('#modalModificar').modal('show');
+            resetFrm("frmModificar", "btnEditar");
+            $('#modalModificar').modal('setting', 'closable', false).modal('show');
             var id = this.id;
             $("#idV").val(id);
         });
 
+        $(document).on("click", "#btnEditarV", function () {
+            var exp = validarVacios("frmModificar", "btnEditarV");
+            console.log(exp);
+            if (exp == 0) {
+                swal({
+                    title: 'Modificar Vendedor',
+                    text: "¿Desea realizar esta modificación?",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, Modificar'
+                }).then((result) => {
+                    if (result.value) {
+                        var datosVendedor = JSON.stringify($('#datosModificarV :input').serializeArray());
+                        modificarVendedor(datosVendedor);
+                    }
+                })
+            }
+        });
+
+
         $(document).on("click", ".btnEliminar", function () {
             eliminarVendedor(this);
         });
-
-        $(function () {
-            $('#frmIngreso').form({
-                txtNombreV: {
-                    identifier: 'txtNombreV',
-                    rules: [{
-                        type: 'empty',
-                        prompt: "Por favor Ingrese un nombre"
-                    }]
-                },
-                txtApellidoV: {
-                    identifier: 'txtApellidoV',
-                    rules: [{
-                        type: 'empty',
-                        prompt: 'Por favor Ingrese un apellido'
-                    }]
-                },
-                txtDuiV: {
-                    identifier: 'txtDuiV',
-                    rules: [{
-                            type: 'empty',
-                            prompt: 'Por favor Ingrese el numero de Dui valido'
-                        },
-                        {
-                            type: 'regExp[/^[0-9_-]{10}$/]',
-                            prompt: 'Por favor Ingrese el formato de Dui valido'
-                        },
-                        {
-                            type: 'maxLength[10]',
-                            prompt: 'Por favor Ingrese la longitud de Dui valida'
-                        }
-                    ]
-                },
-                txtDireccionV: {
-                    identifier: 'txtDireccionV',
-                    rules: [{
-                        type: 'empty',
-                        prompt: 'Por favor Ingrese su direccion de domicilio'
-                    }]
-                },
-                txtTelMovilV: {
-                    identifier: 'txtTelMovilV',
-                    rules: [{
-                            type: 'empty',
-                            prompt: 'Por favor Ingrese su telefono movil'
-                        },
-                        {
-                            type: 'regExp[/^[0-9_-]{9}$/]',
-                            prompt: 'Por favor Ingrese un numero telefonico valido'
-                        },
-                        {
-                            type: 'maxLength[9]',
-                            prompt: 'Por favor Ingrese todos los digitos'
-                        }
-                    ]
-                },
-                txtUsuraioV: {
-                    identifier: 'txtUsuarioV',
-                    rules: [{
-                            type: 'empty',
-                            prompt: 'Por favor Ingrese su Nombre de Usuario'
-                        }
-                    ]
-                },
-                txtContraV: {
-                    identifier: 'txtContraV',
-                    rules: [{
-                            type: 'empty',
-                            prompt: 'Por favor Ingrese su Contraseña'
-                        }
-                    ]
-                },
-                txtTelOfiV: {
-                    identifier: 'txtTelOfiV',
-                    rules: [{
-                            type: 'empty',
-                            prompt: 'Por favor Ingrese su telefono movil'
-                        },
-                        {
-                            type: 'regExp[/^[0-9_-]{9}$/]',
-                            prompt: 'Por favor Ingrese un numero telefonico valido'
-                        },
-                        {
-                            type: 'maxLength[9]',
-                            prompt: 'Por favor Ingrese todos los digitos'
-                        }
-                    ]
-                }
-            }, {
-                onSuccess: function (e) {
-                    e.preventDefault();
-                    var datosVendedor = JSON.stringify($('#datosVendedor :input').serializeArray());
-                    console.log(datosVendedor);
-                    ingresarVendedor(datosVendedor);
-                }
-            });
-        });
-
-        $(function () {
-            $('#frmModificar').form({
-                txtNombreV: {
-                    identifier: 'txtNombreV',
-                    rules: [{
-                        type: 'empty',
-                        prompt: "Por favor Ingrese un nombre"
-                    }]
-                },
-                txtApellidoV: {
-                    identifier: 'txtApellidoV',
-                    rules: [{
-                        type: 'empty',
-                        prompt: 'Por favor Ingrese un apellido'
-                    }]
-                },
-                txtDuiV: {
-                    identifier: 'txtDuiV',
-                    rules: [{
-                            type: 'empty',
-                            prompt: 'Por favor Ingrese el numero de Dui valido'
-                        },
-                        {
-                            type: 'regExp[/^[0-9_-]{10}$/]',
-                            prompt: 'Por favor Ingrese el formato de Dui valido'
-                        },
-                        {
-                            type: 'maxLength[10]',
-                            prompt: 'Por favor Ingrese la longitud de Dui valida'
-                        }
-                    ]
-                },
-                txtDireccionV: {
-                    identifier: 'txtDireccionV',
-                    rules: [{
-                        type: 'empty',
-                        prompt: 'Por favor Ingrese su direccion de domicilio'
-                    }]
-                },
-                txtTelMovilV: {
-                    identifier: 'txtTelMovilV',
-                    rules: [{
-                            type: 'empty',
-                            prompt: 'Por favor Ingrese su telefono movil'
-                        },
-                        {
-                            type: 'regExp[/^[0-9_-]{9}$/]',
-                            prompt: 'Por favor Ingrese un numero telefonico valido'
-                        },
-                        {
-                            type: 'maxLength[9]',
-                            prompt: 'Por favor Ingrese todos los digitos'
-                        }
-                    ]
-                },
-                txtTelOfiV: {
-                    identifier: 'txtTelOfiV',
-                    rules: [{
-                            type: 'empty',
-                            prompt: 'Por favor Ingrese su telefono movil'
-                        },
-                        {
-                            type: 'regExp[/^[0-9_-]{9}$/]',
-                            prompt: 'Por favor Ingrese un numero telefonico valido'
-                        },
-                        {
-                            type: 'maxLength[9]',
-                            prompt: 'Por favor Ingrese todos los digitos'
-                        }
-                    ]
-                }
-            }, {
-                onSuccess: function (e) {
-                    e.preventDefault();
-                    swal({
-                        title: 'Modificar Vendedor',
-                        text: "¿Desea realizar esta modificación?",
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Si, Modificar'
-                    }).then((result) => {
-                        if (result.value) {
-                            var datosVendedor = JSON.stringify($(
-                                '#datosModificarV :input').serializeArray());
-                            //console.log(datosVendedor);
-                            modificarVendedor(datosVendedor);
-                        }
-                    })
-                }
-            });
-        });
-
     });
+    /*Aqui termina el document ready*/
+
     // AJAX PARA INGRESO DE VENDEDOR
     function ingresarVendedor(datos) {
         var status;
@@ -418,37 +268,37 @@
     }
 
     function clearCampo(idForm, btn, campo) {
-                var campo = $('#' + idForm + ' input[name="'+ campo +'"]');
-                $(campo).siblings('div.ui.red.pointing.label').html('');
-                $(campo).siblings('div.ui.red.pointing.label').css('display', 'none');
-                $(btn).removeClass('disabled');
-            }
+        var campo = $('#' + idForm + ' input[name="' + campo + '"]');
+        $(campo).siblings('div.ui.red.pointing.label').html('');
+        $(campo).siblings('div.ui.red.pointing.label').css('display', 'none');
+        $(btn).removeClass('disabled');
+    }
 
     function compNombre(idForm, btn) {
-                var nombre = $('#' + idForm + ' input[name="txtUsuarioV"]');
+        var nombre = $('#' + idForm + ' input[name="txtUsuarioV"]');
 
-                if (nombre.val().trim() != "") {
-                    fetch("controladorUsuario?operacion=compNombre&user=" + nombre.val().trim())
-                        .then(response => {
-                            return response.json();
-                        })
-                        .then(dat => {
-                            if (dat == 1) {
-                                $(nombre).siblings('div.ui.red.pointing.label').html('');
-                                $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
-                            } else {
-                                $(nombre).siblings('div.ui.red.pointing.label').html(
-                                    'Este nombre de usuario ya está ocupado');
-                                $(nombre).siblings('div.ui.red.pointing.label').css('display',
-                                    'inline-block');
-                                $(btn).addClass('disabled');
-                            }
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
-                }
-            }
+        if (nombre.val().trim() != "") {
+            fetch("controladorUsuario?operacion=compNombre&user=" + nombre.val().trim())
+                .then(response => {
+                    return response.json();
+                })
+                .then(dat => {
+                    if (dat == 1) {
+                        $(nombre).siblings('div.ui.red.pointing.label').html('');
+                        $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
+                    } else {
+                        $(nombre).siblings('div.ui.red.pointing.label').html(
+                            'Este nombre de usuario ya está ocupado');
+                        $(nombre).siblings('div.ui.red.pointing.label').css('display',
+                            'inline-block');
+                        $(btn).addClass('disabled');
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    }
 
     //AJAX PARA MODIFICAR VENDEDOR
     function modificarVendedor(datos) {
@@ -479,6 +329,30 @@
         });
     }
 
+    function confirmarContra(idForm, campo1, campo2, btn) {
+        var campo1 = $('#' + idForm + ' input[name="' + campo1 + '"]');
+        var campo2 = $('#' + idForm + ' input[name="' + campo2 + '"]');
+
+        if ((campo1.val().trim() != "") && (campo2.val().trim() != "")) {
+            if (campo1.val().trim() != campo2.val().trim()) {
+                $(campo2).siblings('div.ui.red.pointing.label').html(
+                    'Las contraseñas no concuerdan');
+                $(campo2).siblings('div.ui.red.pointing.label').css('display',
+                    'inline-block');
+                $(btn).addClass('disabled');
+
+                return false;
+            } else {
+                $(campo2).siblings('div.ui.red.pointing.label').html('');
+                $(campo2).siblings('div.ui.red.pointing.label').css('display', 'none');
+                $(btn).removeClass('disabled');
+
+                return true;
+            }
+        }
+    }
+
+    /*Eliminar Vendedor*/
     function eliminarVendedor(boton) {
         var id = boton.id;
 
@@ -529,5 +403,13 @@
     });
     $('#frmIngreso input[name="txtUsuarioV"]').focus(function () {
         clearCampo("frmIngreso", "#btnRegistrarV", this.name);
+    });
+</script>
+
+<script>
+    $(function () {
+        $("input[name=txtConfContraV]").focusout(function () {
+            confirmarContra("frmIngreso", "txtContraV", "txtConfContraV", "btnRegistrarV")
+        });
     });
 </script>

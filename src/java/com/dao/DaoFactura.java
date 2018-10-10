@@ -121,55 +121,6 @@ public class DaoFactura extends Conexion
         return result;
     }
     
-    public int insertar(Factura fact, List<DetalleFactura> detalle) throws Exception{
-        
-            int result=0;
-        try
-        {
-            this.conectar();
-                      
-//INSERTAR FACTURA            
-            String sqlFactura="call nuevaFactura(?,?,?,?,?)";
-            PreparedStatement pre= this.getCon().prepareCall(sqlFactura);
-            pre.setInt(1, fact.getNumero());
-            pre.setInt(2, fact.getVendedor());
-            pre.setInt(3, fact.getCliente());
-            pre.setDouble(4, fact.getTotal());
-            pre.setDouble(5,fact.getTotalIVA());
-            result=pre.executeUpdate();        //CAPTURAR RESULTADO DE LA CONSULTA
- 
-//INSERTAR CADA REGSITRO DEL DETALLE FACTURA            
-            String sqlDetalle="call detalleFactura(?, ?, ?, ?)";
-            String sqlRestar= "call restarStock(?,?)";
-            for (DetalleFactura detalleFactura : detalle)
-            {
-//                INSERTA EN DETALLE FACTURA
-                PreparedStatement pre2= this.getCon().prepareCall(sqlDetalle);
-                pre2.setInt(1, fact.getNumero());
-                pre2.setInt(2, detalleFactura.getCodigoProducto());
-                pre2.setInt(3, detalleFactura.getCantidad());
-                pre2.setDouble(4, detalleFactura.getTotal());
-                result=pre2.executeUpdate();
-                
-//                RESTA PRODUCTO AL STOCK
-                PreparedStatement pre3 = this.getCon().prepareCall(sqlRestar);
-                pre3.setInt(1, detalleFactura.getCodigoProducto());
-                pre3.setInt(2, detalleFactura.getCantidad());
-                result=pre3.executeUpdate();
-                
-            }
-            
-        } catch (Exception e)
-        {
-            System.out.print("Error al registrar factura: "+e.getMessage());
-        }
-        finally{
-            this.desconectar();
-        }
-        
-        return result;
-    }
-    
     public Factura datosFactura(String codigo) throws Exception{
         Factura fact = new Factura();
         try
@@ -178,7 +129,7 @@ public class DaoFactura extends Conexion
             
             String sql="call buscarFactura(?)";
             PreparedStatement pre = this.getCon().prepareCall(sql);
-            pre.setInt(1, Integer.parseInt(codigo));
+            pre.setString(1, codigo);
             
             ResultSet res = pre.executeQuery();
             while(res.next()){
