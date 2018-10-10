@@ -38,7 +38,7 @@ public class ControladorFactura extends HttpServlet
             throws ServletException, IOException
     {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter())
+       try (PrintWriter out = response.getWriter())
         {
 
             DaoFactura daoF= new DaoFactura();
@@ -111,6 +111,43 @@ public class ControladorFactura extends HttpServlet
                     request.getSession().setAttribute("nfactura", n);
                     
                     response.sendRedirect("ticket.jsp");
+                }
+                else if(op.equals("3")){
+                     JsonParser parser = new JsonParser();
+                    JsonObject objeto = parser.parse(request.getParameter("datos")).getAsJsonObject();
+                    
+                    Factura fact = new Factura();
+                    fact.setNumero(objeto.get("nfactura").getAsInt());
+                    fact.setVendedor(objeto.get("vendedor").getAsInt());
+                    fact.setTotal(objeto.get("total").getAsDouble());
+                    fact.setTotalIVA(objeto.get("totalIVA").getAsDouble());
+                    request.getSession().setAttribute("efectivo", objeto.get("efectivo").getAsString());
+                    request.getSession().setAttribute("cambio", objeto.get("cambio").getAsString());
+                    
+                    JsonObject objetoCliente = objeto.get("cliente").getAsJsonObject();
+                    fact.setCliente(objetoCliente.get("codigo").getAsInt());
+                    
+                    //OBTIENE CADA OBJETO DE LA PROPIEDAD TIPO ARRAY "DETALLE"  DEL JSON
+                    JsonArray detalle = objeto.get("detalle").getAsJsonArray();
+                    List <DetalleFactura> fila= new ArrayList();
+                    
+                    for (JsonElement elemento : detalle)
+                    {
+                        JsonObject registro = elemento.getAsJsonObject();
+                        DetalleFactura regDetalle= new DetalleFactura();
+
+                        regDetalle.setCodigoProducto(registro.get("id").getAsInt());
+                        regDetalle.setCantidad(registro.get("cantidad").getAsInt());
+
+    //                    SUBTOTAL
+                        regDetalle.setTotal(
+                                registro.get("precio").getAsDouble()*regDetalle.getCantidad()
+                        );
+
+                        fila.add(regDetalle);
+                    }
+                    
+                       out.print(daoF.insertar(fact, fila));
                 }
             }
 

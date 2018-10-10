@@ -6,9 +6,10 @@
 package com.dao;
 
 import com.conexion.Conexion;
+import com.modelo.Cliente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
+import java.util.*;
 /**
  *
  * @author jsidg
@@ -48,5 +49,38 @@ public class DaoCliente extends Conexion
         }
 
         return "{\"data\": [" + usuarios + "]}";
+    }
+    
+    public List<Cliente> mostrar() throws Exception
+    {
+        List<Cliente> lista=new ArrayList();
+        try
+        {
+            this.conectar();
+            String sql = "select * from cliente";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+
+            ResultSet res = pre.executeQuery();
+
+            while (res.next())
+            {
+                Cliente cliente= new Cliente();
+                cliente.setCodigo(res.getInt("codigoCliente") );
+                cliente.setNombre(res.getString("nombre"));
+                cliente.setApellidos(res.getString("apellidos") );
+                cliente.setDireccion(res.getString("direccion"));
+                    
+                lista.add(cliente);
+            }
+        } catch (Exception e)
+        {
+            System.out.print(e.getMessage());
+            throw e;
+        } finally
+        {
+            this.desconectar();
+        }
+
+        return lista;
     }
 }
