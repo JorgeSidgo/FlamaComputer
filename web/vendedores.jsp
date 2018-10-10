@@ -59,7 +59,8 @@
                             <div class="field">
                                 <label>Numero de DUI</label>
                                 <input type="text" class="dui requerido" name="txtDuiV" placeholder="Dui">
-                                <div class="ui red pointing label" style="display: none;"></div>                            </div>
+                                <div class="ui red pointing label" style="display: none;"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="field">
@@ -71,12 +72,12 @@
                             </div>
                             <div class="field">
                                 <label>Telefono Movil</label>
-                                <input type="text" name="txtTelMovilV" class="telefono requerido" placeholder="0000-0000" >
+                                <input type="text" name="txtTelMovilV" class="telefono requerido" placeholder="0000-0000">
                                 <div class="ui red pointing label" style="display: none;"></div>
                             </div>
                             <div class="field">
                                 <label>Telefono Oficina</label>
-                                <input type="text" name="txtTelOfiV" class="telefono requerido" placeholder="0000-0000" >
+                                <input type="text" name="txtTelOfiV" class="telefono requerido" placeholder="0000-0000">
                                 <div class="ui red pointing label" style="display: none;"></div>
                             </div>
                         </div>
@@ -100,6 +101,7 @@
                             <thead>
                                 <tr>
                                     <th>Codigo Vendedor</th>
+                                    <th>Nombre de Usuario</th>
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>DUI</th>
@@ -172,7 +174,7 @@
                     </div>
                 </div>
             </div>
-        </form>            
+        </form>
     </div>
     <div class="actions">
         <div class="ui black deny button">Cancelar</div>
@@ -189,27 +191,27 @@
         $('#btnModalRegistro').click(function () {
             $('#modalIngreso').modal('setting', 'closable', false).modal('show');
         });
-        
-        $(document).on("click", "#btnRegistrarV", function(){
+
+        $(document).on("click", "#btnRegistrarV", function () {
             var exp = validarVacios("frmIngreso", "btnRegistrarV");
-            
-            if (exp==0) {
-               var datosVendedor = JSON.stringify($('#frmIngreso :input').serializeArray());
-               ingresarVendedor(datosVendedor);
+
+            if (exp == 0) {
+                var datosVendedor = JSON.stringify($('#frmIngreso :input').serializeArray());
+                ingresarVendedor(datosVendedor);
             }
         });
-                
+
         $(document).on("click", ".btnEditar", function () {
             resetFrm("frmModificar", "btnEditar");
             $('#modalModificar').modal('setting', 'closable', false).modal('show');
             var id = this.id;
-            $("#idV").val(id);            
+            $("#idV").val(id);
         });
-        
+
         $(document).on("click", "#btnEditarV", function () {
             var exp = validarVacios("frmModificar", "btnEditarV");
             console.log(exp);
-            if (exp==0) {
+            if (exp == 0) {
                 swal({
                     title: 'Modificar Vendedor',
                     text: "¿Desea realizar esta modificación?",
@@ -230,10 +232,10 @@
 
         $(document).on("click", ".btnEliminar", function () {
             eliminarVendedor(this);
-        });            
+        });
     });
     /*Aqui termina el document ready*/
-    
+
     // AJAX PARA INGRESO DE VENDEDOR
     function ingresarVendedor(datos) {
         var status;
@@ -266,37 +268,37 @@
     }
 
     function clearCampo(idForm, btn, campo) {
-                var campo = $('#' + idForm + ' input[name="'+ campo +'"]');
-                $(campo).siblings('div.ui.red.pointing.label').html('');
-                $(campo).siblings('div.ui.red.pointing.label').css('display', 'none');
-                $(btn).removeClass('disabled');
-            }
+        var campo = $('#' + idForm + ' input[name="' + campo + '"]');
+        $(campo).siblings('div.ui.red.pointing.label').html('');
+        $(campo).siblings('div.ui.red.pointing.label').css('display', 'none');
+        $(btn).removeClass('disabled');
+    }
 
     function compNombre(idForm, btn) {
-                var nombre = $('#' + idForm + ' input[name="txtUsuarioV"]');
+        var nombre = $('#' + idForm + ' input[name="txtUsuarioV"]');
 
-                if (nombre.val().trim() != "") {
-                    fetch("controladorUsuario?operacion=compNombre&user=" + nombre.val().trim())
-                        .then(response => {
-                            return response.json();
-                        })
-                        .then(dat => {
-                            if (dat == 1) {
-                                $(nombre).siblings('div.ui.red.pointing.label').html('');
-                                $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
-                            } else {
-                                $(nombre).siblings('div.ui.red.pointing.label').html(
-                                    'Este nombre de usuario ya está ocupado');
-                                $(nombre).siblings('div.ui.red.pointing.label').css('display',
-                                    'inline-block');
-                                $(btn).addClass('disabled');
-                            }
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        });
-                }
-            }
+        if (nombre.val().trim() != "") {
+            fetch("controladorUsuario?operacion=compNombre&user=" + nombre.val().trim())
+                .then(response => {
+                    return response.json();
+                })
+                .then(dat => {
+                    if (dat == 1) {
+                        $(nombre).siblings('div.ui.red.pointing.label').html('');
+                        $(nombre).siblings('div.ui.red.pointing.label').css('display', 'none');
+                    } else {
+                        $(nombre).siblings('div.ui.red.pointing.label').html(
+                            'Este nombre de usuario ya está ocupado');
+                        $(nombre).siblings('div.ui.red.pointing.label').css('display',
+                            'inline-block');
+                        $(btn).addClass('disabled');
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    }
 
     //AJAX PARA MODIFICAR VENDEDOR
     function modificarVendedor(datos) {
@@ -326,7 +328,30 @@
             }
         });
     }
-    
+
+    function confirmarContra(idForm, campo1, campo2, btn) {
+        var campo1 = $('#' + idForm + ' input[name="' + campo1 + '"]');
+        var campo2 = $('#' + idForm + ' input[name="' + campo2 + '"]');
+
+        if ((campo1.val().trim() != "") && (campo2.val().trim() != "")) {
+            if (campo1.val().trim() != campo2.val().trim()) {
+                $(campo2).siblings('div.ui.red.pointing.label').html(
+                    'Las contraseñas no concuerdan');
+                $(campo2).siblings('div.ui.red.pointing.label').css('display',
+                    'inline-block');
+                $(btn).addClass('disabled');
+
+                return false;
+            } else {
+                $(campo2).siblings('div.ui.red.pointing.label').html('');
+                $(campo2).siblings('div.ui.red.pointing.label').css('display', 'none');
+                $(btn).removeClass('disabled');
+
+                return true;
+            }
+        }
+    }
+
     /*Eliminar Vendedor*/
     function eliminarVendedor(boton) {
         var id = boton.id;
@@ -378,5 +403,13 @@
     });
     $('#frmIngreso input[name="txtUsuarioV"]').focus(function () {
         clearCampo("frmIngreso", "#btnRegistrarV", this.name);
+    });
+</script>
+
+<script>
+    $(function () {
+        $("input[name=txtConfContraV]").focusout(function () {
+            confirmarContra("frmIngreso", "txtContraV", "txtConfContraV", "btnRegistrarV")
+        });
     });
 </script>

@@ -10,6 +10,9 @@ $(function () {
                     "data": "Codigo Vendedor"
                 },
                 {
+                    "data": "Nombre de Usuario"
+                },
+                {
                     "data": "Nombre"
                 },
                 {

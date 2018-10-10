@@ -18,6 +18,9 @@ import java.util.List;
 
 public class DaoVendedor extends Conexion{
         
+    
+    DaoUsuario daoU = new DaoUsuario();
+    
     public int codigoVendedorId(int id) throws Exception
     {
         int idVend = 0;
@@ -65,7 +68,7 @@ public class DaoVendedor extends Conexion{
                 eliminar = "<button id=\\\"" + res.getInt("codigoVendedor") + "\\\" class=\\\"ui btnEliminar icon negative small button\\\"><i class=\\\"trash icon\\\"></i></button>";
                 editar = "<button id=\\\"" + res.getInt("codigoVendedor") + "\\\" class=\\\"ui btnEditar icon primary small button\\\"><i class=\\\"edit icon\\\"></i></button>";
                 
-                    vendedor += "{\n" + "\"Codigo Vendedor\": \"" + res.getInt("codigoVendedor") + "\", " + "\"Nombre\": \"" + res.getString("nombre") + "\", " + "\"Apellido\": \"" + res.getString("apellidos") + "\", "
+                    vendedor += "{\n" + "\"Codigo Vendedor\": \"" + res.getInt("codigoVendedor")  + "\", " + "\"Nombre de Usuario\": \"" + daoU.getNomUsuario(res.getInt("codigoUsuario"))  + "\", " + "\"Nombre\": \"" + res.getString("nombre") + "\", " + "\"Apellido\": \"" + res.getString("apellidos") + "\", "
                         + "\"Dui\":\"" + res.getString("dui") + "\"," + "\"Dirección\": \"" + res.getString("direccion")  + "\", " + "\"Telefono Oficina\":\"" + res.getString("telefonoOficina") + "\","
                         + "\"Telefono Movil\":\"" + res.getString("telefonoMovil") + "\"," + "\"Codigo Usuario\":\"" + res.getInt("codigoUsuario") + "\"," + "\"Acciones\":\""+editar + " " + eliminar + "\"" + "},";
             }

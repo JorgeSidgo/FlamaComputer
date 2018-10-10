@@ -87,11 +87,11 @@
                     type: 'select',
                     options: [{
                             val: '1',
-                            text: 'Administrador'
+                            text: 'Desarrollador'
                         },
                         {
                             val: '2',
-                            text: 'Desarrollador'
+                            text: 'Administrador'
                         }
                     ]
                 },
@@ -161,15 +161,11 @@
                             if (dat == 1) {
                                 $(contra).siblings('div.ui.red.pointing.label').html('');
                                 $(contra).siblings('div.ui.red.pointing.label').css('display', 'none');
-                                this.comp--;
-                                alert(this.comp);
                             } else {
                                 $(contra).siblings('div.ui.red.pointing.label').html(
                                     'La constraseña no concuerda');
                                 $(contra).siblings('div.ui.red.pointing.label').css('display',
                                     'inline-block');
-                                this.comp++;
-                                alert(this.comp);
                             }
                         })
                         .catch(err => {
@@ -256,9 +252,9 @@
                 console.log("nom: " + nom);
                 console.log("nomAct: " + this.nomActual);
                 if (nom == this.nombreActual) {
-                    alert("jaj al chile");
+                    //alert("jaj al chile");
                 } else {
-                    alert("nelsonsimon");
+                    //alert("nelsonsimon");
                     switch (op) {
                         case 'add':
                             this.contador++;

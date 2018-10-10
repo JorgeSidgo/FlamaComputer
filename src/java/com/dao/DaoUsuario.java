@@ -23,8 +23,30 @@ public class DaoUsuario extends Conexion
     public static String descRol;
     public static int idVendedor;
     
-    DaoVendedor daoV = new DaoVendedor();
 
+    public String getNomUsuario(int id) throws Exception
+    {
+        String nombre = "";
+        
+        try {
+            this.conectar();
+            String sql = "select nombreUsuario from usuario where codigoUsuario = ?";
+            PreparedStatement pre = this.getCon().prepareStatement(sql);
+            pre.setInt(1, id);
+            ResultSet res = pre.executeQuery();
+            res.next();
+            nombre = res.getString(1);
+        } catch (Exception e) {
+            throw e;
+        }
+        finally
+        {
+            this.desconectar();
+        }
+        
+        return nombre;
+    }
+    
     public String getUsuarioId(int id) throws Exception
     {
         String json = "";
@@ -267,6 +289,7 @@ public class DaoUsuario extends Conexion
 
     public boolean login(Usuario u) throws Exception
     {
+        DaoVendedor daoV = new DaoVendedor();
         boolean respuesta = false;
         int filas = 0;
 
